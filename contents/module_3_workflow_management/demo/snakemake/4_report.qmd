@@ -1,79 +1,350 @@
 ---
-title: "Module 3: Snakemake Workflow Report"
+title: "Hands-on: Dynamic Reporting with R"
+author:    
+  - name: "Fabio Molo"
+    orcid: 0000-0001-9320-5854
 format:
   html:
-    toc: true
-    embed-resources: true
-execute:
-  warning: false
+    toc-depth: 4
+    df-print: paged
+  pdf: default
+execute: 
+  eval: true
+bibliography: references.bib
 ---
 
-# Adapt your Module 2 report
+This hands-on requires R and Quarto. Visit the [instructions](../../instructions/index.qmd) page to learn how to use them in a GitHub codespace.
 
-This file is the destination for the report you created in Module 2. Do not
-write a second report from scratch. Instead:
+# Create a new Quarto file
 
-1. Copy your Module 2 `.qmd` file over this file, keeping the name
-   `4_report.qmd`.
-2. Copy any local files it needs, such as `references.bib`, into this directory.
-3. Keep the report structure and dynamic-reporting features you already wrote.
-4. Adapt its code chunks to read and present the Snakemake workflow outputs.
+1)  In the RStudio menu, go to `File > New File > Quarto document`
+2)  Use the default settings and enter a filename
+3)  Save the file with a .qmd filename extension
+4)  Click on the button `Render` with the blue arrow on top of the editor in RStudio
+5)  An .html file with the same name as your .qmd file should have been generated
 
-The report is rendered from `demo/snakemake/`, so these paths are available:
+<h3>🎉 Congratulations, you have generated your first dynamic report! 🎊  </h3>
 
-| Path | Produced by | Contents |
-|---|---|---|
-| `work/1_names_clean.csv` | `1_clean.py` | Zurich names data with English column names |
-| `work/2_yearly_winners.csv` | `2_summarize.R` | most common names by year and sex, including ties |
-| `work/3_top_names.csv` | `3_prepare_plots.py` | top names by sex for 2021–2025, including cutoff ties |
-| `work/3_selected_names.csv` | `3_prepare_plots.py` | yearly births for Peter and Daniel |
+We will now modify the report with our own content.
 
-## Read the Snakemake outputs
+First, remove all the content that was added by default by RStudio, from `Content`on downwards. 
 
-Replace the download and transformation chunks in your Module 2 report with
-one of these language-specific examples. `datclean` and `summaries` preserve
-the Module 2 names; `top10` and `subset` replace the transformations previously
-performed inside the two plotting chunks.
+# Editing the YAML header
 
-For an R report:
+The YAML[^1] header delimited by (`---`) specifies options and metadata of your report. Add information about `author` and `date` (use `last-modified` to always display the latest date) and define the output format as `html`. Be careful with *indentation*, YAML is sensitive to spacing! The header can be kept simple or it can contain a lot of information. An example:
 
-```r
-datclean <- read.csv("work/1_names_clean.csv")
-summaries <- read.csv("work/2_yearly_winners.csv")
-top10 <- read.csv("work/3_top_names.csv")
-subset <- read.csv("work/3_selected_names.csv")
+[^1]: YAML is an acronym for "Yet Another Markup Language"
+
+``` yaml
+---
+title: "Title of the report"
+subtitle: "Subtitle"
+date: last-modified # display the date of the last edit
+author: 
+  - name: "Author 1"
+    orcid: 1234-1234-1234-12345
+    affiliation: "University of Zurich"
+format:
+  html:
+    toc: true # add a table of contents
+---
 ```
 
-For a Python report:
+<!-- ::: {#tip-chunks .callout-tip collapse="false"} -->
 
-```python
-import pandas as pd
+<!-- #### Multiple output formats -->
 
-datclean = pd.read_csv("work/1_names_clean.csv")
-summaries = pd.read_csv("work/2_yearly_winners.csv")
-top10 = pd.read_csv("work/3_top_names.csv")
-subset = pd.read_csv("work/3_selected_names.csv")
+<!-- When specifying multiple outputs, clicking on the down-arrow next to `Render` allows you to change the output format (e.g., change from html to pdf) -->
+
+<!-- ::: -->
+
+::: {.callout-note appearance="minimal"}
+**Optional exercise**
+
+-   Also add your email and affiliation
+:::
+
+Re-render your report to see the changes you just made.
+
+::: {.callout-note appearance="minimal"}
+**Optional exercise**
+
+-   Try rendering the report as pdf instead of html. To do this, add `pdf: default` in the YAML header under `format:` at the same indentation level as `html:`.
+:::
+
+::: {.callout-tip collapse="false"}
+#### Render often
+
+When working on a dynamic report it is recommended to re-render the report often. This allows us to quickly spot errors and fix them on the fly. A useful keyboard shortcut for rendering is `Ctrl+Shift+K` (or `CMD+Shift+K` on Mac).
+:::
+
+# Editing the report content
+
+The two most important elements of a dynamic report are text and code.
+
+## Text
+
+Quarto uses Markdown syntax to structure and format text. For example,
+
+``` markdown
+# This is a title
+
+Two stars will render a word **bold**. 
+
+We can also create lists:
+
+- Element 1
+- Element 2
+
+A useful link is this [Markdown guide](https://quarto.org/docs/authoring/markdown-basics.html)
+
+> An impressive quote
 ```
 
-Use `summaries` for the table, `top10` for the top-names plot, and `subset`
-for the names-over-time plot. These files have already been transformed by the
-workflow, so do not repeat those transformations in the report.
+This type of text editing is different from WYSIWYG (*What you see is what you get*) editors, such as Microsoft Word. In RStudio, it is possible to switch between the `visual` and `source` modes (topleft corner of the editor). The `source` mode displays the raw code, while the `visual` tab shows a live preview of the formatted document and provides WYSIWYG-like interface. This makes it easier to see how your report will look when rendered and can be useful if you do not know certain Markdown syntax. Nevertheless, we recommend to use the `source` mode as the default as it displays the raw code.
 
-At minimum, adapt your report to:
+<!-- ![](https://upload.wikimedia.org/wikipedia/commons/7/74/A-Cat.jpg){fig-align="center" width="273"} -->
 
-- replace the Module 2 download and transformation code with reads of the
-  workflow-generated CSV files;
-- display `2_yearly_winners.csv` as the captioned table;
-- recreate the top-names and names-over-time plots from the prepared inputs,
-  retaining their figure labels and cross-references;
-- include a value computed with inline code; and
-- report the R or Python environment used to render it.
+## Code chunks
 
-After each edit, run:
+[Code chunks](https://quarto.org/docs/computations/r.html) contain executable code and let you embed results directly into your text (e.g., data summaries, plots, or tables). Code chunks are automatically re-run when the document is rendered. If any code chunk fails, the entire document may fail to render. This encourages writing reproducible, error-free code.
 
-```bash
-snakemake --cores 1
+::: {.callout-tip collapse="false"}
+#### Code chunk options
+
+Code chunks are delimited by ```` ```{r} ```` (you can specify other languages like Python, Julia, ObservableJS). For each code you can add *chunk options* to the code chunks with `#|`, for example `#| echo: false` will hide the code. In RStudio you can see the options available if you type `#|` and then press the TAB key on your keyboard. Many options can be set globally for the entire document on the YAML header (e.g., under `execute:`, under `html:`, or under `pdf:`).
+:::
+
+### Load libraries
+
+We first load all R packages that we will use in our analysis. Copy the code below inside a code chunk.
+
+```{r}
+#| warning: false
+#| output: false
+library("dplyr") # data wrangling
+library("ggplot2") # plotting
+library("kableExtra") # tables
 ```
 
-Then open `results/4_report.html`. When only this file changes, Snakemake
-re-runs the report rule while leaving the upstream analysis outputs untouched.
+::: {.callout-note appearance="minimal"}
+**Optional exercises**
+
+Explore different options for code execution:
+
+-   Hide all <!-- echo: false -->
+-   Print all code but do not execute it <!-- echo: true and eval: false -->
+-   Fold all code (accessible by clicking on a button when rendered as HTML) <!-- code-fold: true --> <!-- -   Hide only the code that generates the table -->
+:::
+
+### Read the data
+
+For this example we will use the data set "Vornamen neugeborener Mädchen und Knaben mit Wohnsitz in der Stadt Zürich" (<https://data.stadt-zuerich.ch/dataset/bev_vornamen_baby_od3700>). This data set contains the names of newborns in the city of Zurich since the year 1993. The data was kindly made available to the public domain via a CCZero license by Open Data Zürich. We will now import the data and rename the variables into English.
+
+```{r}
+url <- "https://data.stadt-zuerich.ch/dataset/bev_vornamen_baby_od3700/download/BEV370OD3700.csv"
+dat <- read.csv(url)
+datclean <- dat |>
+    rename(year = StichtagDatJahr,
+           name = Vorname,
+           sex = SexLang,
+           births = AnzGebuWir) |>
+    mutate(sex = ifelse(sex == "weiblich", "female", "male"))
+```
+
+
+::: {.callout-tip collapse="false"}
+#### Hide warnings in output
+
+You can hide all `R` warnings from the output by adding the following to your YAML header:
+``` yaml
+execute:
+  warning: false
+```
+:::
+
+
+### Summarizing the data
+
+We first compute the most common name by year and sex.
+
+```{r}
+summaries <- datclean |>
+  select(year, name, sex, births) |>
+  group_by(sex, year) |>
+  slice_max(order_by = births, n = 1) |>
+  arrange(-year)
+```
+
+### Creating a table
+
+We can create a table summarizing our results using the `kable` function. There is either a basic version of `kable` in the [`knitr` package](https://yihui.org/knitr/), or an extended version in the [`kableExtra` package](https://github.com/haozhu233/kableExtra), which we loaded above. See <https://quarto.org/docs/computations/r.html#data-frames> for all options for displaying R data frames.
+
+```{r}
+summaries |>
+  kable(caption = "Most common names of newborns in the city of Zurich by year and sex")
+```
+
+
+### Plot the data
+
+Creating a plot in a code chunk automatically inserts it into the rendered Quarto report. For example, we may want to plot the most common names between 2021 and 2025.
+
+```{r}
+#| label: fig-names
+#| fig-cap: "Most common names of Zurich newborns in 2021-2025."
+#| message: false
+#| fig-height: 5
+datclean |>
+  # The upper bound is deliberate: the data set gains a year of records over
+  # time, and bounding the window keeps this figure matching its caption.
+  filter(year >= 2021, year <= 2025) |>
+  group_by(sex, name) |>
+  summarise(births = sum(births)) |>
+  slice_max(order_by = births, n = 10) |>
+  ggplot(aes(x = reorder(name, births), y = births)) +
+  facet_wrap(~ sex, scales = "free") +
+  geom_bar(stat = "identity") +
+  labs(x = "Name", y = "Births", 
+       title = "") +
+  coord_flip() +
+  theme_minimal()
+```
+
+Note that we can add chunk options to create a caption (`#| fig-cap: "Most common names of Zurich newborns in 2021-2025."`) and a label (`#| label: fig-names`). We can then refer to [@fig-names] in the text using `[@fig-names]`. Two other important options are `fig-height` and `fig-width` which allow us to specify the height and width of our figures. Here we have specified `fig-height: 5` which sets the height of the plot to 5 inches.
+
+::: {.callout-note appearance="minimal"}
+**Optional exercises**
+
+-   Change the height and width of your plot
+-   Add a label to the previously generated table and refer to it in the text (beware that table labels start with `tbl-` instead of `fig-`).
+:::
+
+### Plot your name
+
+Here we plot the frequency of our names over time. 
+
+::: {.callout-note appearance="minimal"}
+**Exercise**
+
+-   Add your name to the plot
+:::
+
+
+```{r}
+#| label: fig-names-over-time
+#| fig-cap: "Popularity of names over time."
+#| message: false
+datclean |>
+  group_by(sex, name, year) |>
+  filter(name %in% c("Fabio", "Daniel")) |>
+  ggplot(aes(x = year, y = births, color = name)) +
+  geom_line() +
+  geom_point() +
+  scale_color_viridis_d() +
+  labs(x = "Year", y = "Births", color = "") +
+  expand_limits(y = 0) +
+  theme_minimal()
+
+```
+
+## Reproducibility
+
+When creating dynamic reports, it is good practice to document the software versions and other parts of the computational environment. A simple yet effective way to document your computational environment is to include the output of `sessionInfo()`.
+
+```{r}
+#| fontsize: "small"
+sessionInfo()
+```
+
+## Bonus content
+
+### Inline code
+
+A "killer-feature" of dynamic reporting is the possibility to add [inline code](https://quarto.org/docs/computations/inline-code.html). This allows us to dynamically insert data summaries into text, avoiding tedious and error-prone copy-and-pasting. For example,
+
+> In 2023, the most common male name was \``` r filter(summaries, year == 2023, sex == "male")$name` `` whereas the most common female name was \``` r filter(summaries, year == 2023, sex == "female")$name` ``.
+
+produces
+
+> In 2023, the most common male name was `r filter(summaries, year == 2023, sex == "male")$name` whereas the most common female name was `r filter(summaries, year == 2023, sex == "female")$name`.
+
+Note that, instead of performing computations within an inline code chunk, it is often advisable to perform computations in a separate code chunk, save the results to a variable, and then print the variable in the inline code chunk.
+
+::: {.callout-note appearance="minimal"}
+**Optional exercise**
+
+Compute the total number of births in the data set and then display it via an inline code chunk.
+:::
+
+### References
+
+In Quarto, it is also possible to include a bibliography file in BibTeX format (with .bib file extension) to automatically generate citations and a bibliography (<https://quarto.org/docs/authoring/citations.html>). This file has to be specified in the YAML header. In this hands-on, we have a `references.bib` file in the same directory as this .qmd file, so we specify:
+
+``` yaml
+bibliography: references.bib
+```
+
+We can then use `[@Hofmann2023]` (with parentheses) or `@Hofmann2023` (without parentheses) to cite a bibliography item named Hofmann2023. For example, @Hofmann2023 provides an introduction to dynamic reporting. @Peikert2021 summarizes a more advanced dynamic reporting workflow. @Knuth1984 proposed the literate programming paradigm.
+
+A typical entry from a BibTeX bibliography file looks like this:
+
+``` bibtex
+@article{Knuth1984,
+  title = {Literate Programming},
+  volume = {27},
+  DOI = {10.1093/comjnl/27.2.97},
+  number = {2},
+  journal = {The Computer Journal},
+  author = {Knuth,  D. E.},
+  year = {1984},
+  pages = {97--111}
+}
+```
+
+These files can either be created manually or with a reference manager (e.g., [Zotero](https://www.zotero.org/)).
+
+::: {.callout-tip collapse="false"}
+#### References in RStudio
+
+To facilitate reference management in RStudio:
+
+-   [Connect your RStudio project with a Zotero library](https://quarto.org/docs/visual-editor/technical.html#citations-from-zotero)
+-   Use the Visual editor in RStudio and go to insert\>citation
+:::
+
+::: {.callout-note appearance="minimal"}
+**Optional exercise**
+
+Cite one of your favorite papers
+:::
+
+
+### Practical tips
+
+This concludes a first introduction to dynamic reporting with Quarto. Here are some further tips
+
+-   Nobody knows all the options by heart, use the [Quarto documentation](https://quarto.org/docs/reference/)!
+-   Re-render your reports often to spot errors quickly
+-   Use relative paths so that others can reproduce your report
+-   Always add `sessionInfo()` or an equivalent at the bottom of your report to show details on the computational environment (e.g., package versions) used to generate your report <!-- - When sharing your analyses, include a README file that documents all steps necessary to create your report -->
+
+### Gallery
+
+The are many examples of dynamically generated reports online. Explore the links below:
+
+-   Example 1. Reproducible HTML report using R Markdown: <https://data.snf.ch/stories/open-research-data-2023-en.html>
+-   Example 2. Reproducible PDF report using knitr: <https://gitlab.uzh.ch/fabio.molo/nhb-replication>
+-   Example 3. Website with dynamically generated course materials: <https://github.com/avehtari/BDA_course_Aalto/tree/master>
+-   Example 4. Reproducible HTML slides with Quarto: <https://github.com/kjhealy/flipbookr-quarto/tree/main?tab=readme-ov-file>.
+-   Example 5. Code repository of a paper with multiple Quarto analyses (HTML): <https://github.com/SamCH93/missSim>
+
+Reflect about the following questions:
+
+-   [ ] Can you find the source files that generate the reports?
+-   [ ] Which dynamic reporting tools are used?
+-   [ ] Can you access the outputs?
+-   [ ] Do they use some advanced features for dynamic reporting or computational reproducibility?
+-   [ ] What would be the workflow to reproduce these reports?
+
+# References

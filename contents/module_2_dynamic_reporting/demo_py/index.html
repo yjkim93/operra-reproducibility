@@ -1,0 +1,2063 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.42">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Peter Degen">
+
+<title>Hands-on: Dynamic Reporting with Python – Home</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../assets/CRSnew_Logo.svg" rel="icon" type="image/svg+xml">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b53751a350365c71b6c909e95f209ed1.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-9adccab3cd7b7815bb1d84d54b801621.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-025994e06653e000c4f085e385d05938.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Home</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../instructions/index.html"> 
+<span class="menu-text">Instructions</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../module_0_introduction/slides/index.html"> 
+<span class="menu-text">0. Introduction</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-version-control" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">1. Version Control</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-version-control">    
+        <li>
+    <a class="dropdown-item" href="../../module_1_version_control/slides/index.html">
+ <span class="dropdown-text">Slides</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../module_1_version_control/demo/index.html">
+ <span class="dropdown-text">Hands-on</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-dynamic-reporting" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">2. Dynamic Reporting</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-dynamic-reporting">    
+        <li>
+    <a class="dropdown-item" href="../../module_2_dynamic_reporting/slides/index.html">
+ <span class="dropdown-text">Slides</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../module_2_dynamic_reporting/demo_R/index.html">
+ <span class="dropdown-text">Hands-on (R)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../module_2_dynamic_reporting/demo_py/index.html">
+ <span class="dropdown-text">Hands-on (Python)</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-workflow-management" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">3. Workflow Management</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-workflow-management">    
+        <li>
+    <a class="dropdown-item" href="../../module_3_workflow_management/slides/index.html">
+ <span class="dropdown-text">Slides</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../module_3_workflow_management/demo/index.html">
+ <span class="dropdown-text">Hands-on</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-containers" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">4. Containers</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-containers">    
+        <li>
+    <a class="dropdown-item" href="../../module_4_containers/slides/index.html">
+ <span class="dropdown-text">Slides</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../module_4_containers/demo/index.html">
+ <span class="dropdown-text">Hands-on</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sharing--publishing" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">5. Sharing &amp; Publishing</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-sharing--publishing">    
+        <li>
+    <a class="dropdown-item" href="../../module_5_sharing_publishing/slides/index.html">
+ <span class="dropdown-text">Slides</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../module_5_sharing_publishing/demo/index.html">
+ <span class="dropdown-text">Hands-on</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="4">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#create-a-new-quarto-file" id="toc-create-a-new-quarto-file" class="nav-link active" data-scroll-target="#create-a-new-quarto-file">Create a new Quarto file</a></li>
+  <li><a href="#editing-the-yaml-header" id="toc-editing-the-yaml-header" class="nav-link" data-scroll-target="#editing-the-yaml-header">Editing the YAML header</a></li>
+  <li><a href="#editing-the-report-content" id="toc-editing-the-report-content" class="nav-link" data-scroll-target="#editing-the-report-content">Editing the report content</a>
+  <ul>
+  <li><a href="#text" id="toc-text" class="nav-link" data-scroll-target="#text">Text</a></li>
+  <li><a href="#code-chunks" id="toc-code-chunks" class="nav-link" data-scroll-target="#code-chunks">Code chunks</a>
+  <ul class="collapse">
+  <li><a href="#load-libraries" id="toc-load-libraries" class="nav-link" data-scroll-target="#load-libraries">Load libraries</a></li>
+  <li><a href="#read-the-data" id="toc-read-the-data" class="nav-link" data-scroll-target="#read-the-data">Read the data</a></li>
+  <li><a href="#summarizing-the-data" id="toc-summarizing-the-data" class="nav-link" data-scroll-target="#summarizing-the-data">Summarizing the data</a></li>
+  <li><a href="#creating-a-table" id="toc-creating-a-table" class="nav-link" data-scroll-target="#creating-a-table">Creating a table</a></li>
+  <li><a href="#plot-the-data" id="toc-plot-the-data" class="nav-link" data-scroll-target="#plot-the-data">Plot the data</a></li>
+  <li><a href="#plot-your-name" id="toc-plot-your-name" class="nav-link" data-scroll-target="#plot-your-name">Plot your name</a></li>
+  </ul></li>
+  <li><a href="#reproducibility" id="toc-reproducibility" class="nav-link" data-scroll-target="#reproducibility">Reproducibility</a></li>
+  <li><a href="#bonus-content" id="toc-bonus-content" class="nav-link" data-scroll-target="#bonus-content">Bonus content</a>
+  <ul class="collapse">
+  <li><a href="#inline-code" id="toc-inline-code" class="nav-link" data-scroll-target="#inline-code">Inline code</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  <li><a href="#practical-tips" id="toc-practical-tips" class="nav-link" data-scroll-target="#practical-tips">Practical tips</a></li>
+  <li><a href="#gallery" id="toc-gallery" class="nav-link" data-scroll-target="#gallery">Gallery</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#references-1" id="toc-references-1" class="nav-link" data-scroll-target="#references-1">References</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Hands-on: Dynamic Reporting with Python</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Peter Degen <a href="https://orcid.org/0009-0004-0706-9200" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>This hands-on requires Python and Quarto. Visit the <a href="../../instructions/index.html">instructions</a> page to learn how to use them in a GitHub codespace.</p>
+<section id="create-a-new-quarto-file" class="level1">
+<h1>Create a new Quarto file</h1>
+<ol type="1">
+<li>In VS Code, create a new file with the .qmd extension</li>
+<li>Click on the button <code>Preview</code> on the top right corner of the editor or use the shortcut <code>Ctrl + Shift + K</code> to render a preview of the document</li>
+<li>An .html file with the same name as your .qmd file should have been generated</li>
+</ol>
+<h3 class="anchored" data-anchor-id="create-a-new-quarto-file">
+🎉 Congratulations, you have generated your first dynamic report! 🎊
+</h3>
+<p>We will now modify the report with our own content.</p>
+</section>
+<section id="editing-the-yaml-header" class="level1">
+<h1>Editing the YAML header</h1>
+<p>The YAML<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> header delimited by (<code>---</code>) specifies options and metadata of your report. Add information about <code>author</code> and <code>date</code> (use <code>last-modified</code> to always display the latest date) and define the output format as <code>html</code>. Be careful with <em>indentation</em>, YAML is sensitive to spacing! The header can be kept simple or it can contain a lot of information. An example:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Title of the report"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">subtitle</span><span class="kw">:</span><span class="at"> </span><span class="st">"Subtitle"</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> last-modified</span><span class="co"> # display the date of the last edit</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"Author 1"</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">orcid</span><span class="kw">:</span><span class="at"> 1234-1234-1234-12345</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">affiliation</span><span class="kw">:</span><span class="at"> </span><span class="st">"University of Zurich"</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co"> # add a table of contents</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">engine</span><span class="kw">:</span><span class="at"> jupyter</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<!-- ::: {#tip-chunks .callout-tip collapse="false"} -->
+<!-- #### Multiple output formats -->
+<!-- When specifying multiple outputs, clicking on the down-arrow next to `Render` allows you to change the output format (e.g., change from html to pdf) -->
+<!-- ::: -->
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Optional exercise</strong></p>
+<ul>
+<li>Also add your email and affiliation</li>
+</ul>
+</div>
+</div>
+</div>
+<p>Re-render your report to see the changes you just made.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Optional exercise</strong></p>
+<ul>
+<li>Try rendering the report as pdf instead of html. To do this, add <code>pdf: default</code> in the YAML header under <code>format:</code> at the same indentation level as <code>html:</code>.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Render often
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>When working on a dynamic report it is recommended to re-render the report often. This allows us to quickly spot errors and fix them on the fly. A useful keyboard shortcut for rendering is <code>Ctrl+Shift+K</code> (or <code>CMD+Shift+K</code> on Mac).</p>
+</div>
+</div>
+</div>
+</section>
+<section id="editing-the-report-content" class="level1">
+<h1>Editing the report content</h1>
+<p>The two most important elements of a dynamic report are text and code.</p>
+<section id="text" class="level2">
+<h2 class="anchored" data-anchor-id="text">Text</h2>
+<p>Quarto uses Markdown syntax to structure and format text. For example,</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># This is a title</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>Two stars will render a word **bold**.</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>We can also create lists:</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Element 1</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Element 2</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>A useful link is this <span class="co">[</span><span class="ot">Markdown guide</span><span class="co">](https://quarto.org/docs/authoring/markdown-basics.html)</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; An impressive quote</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This type of text editing is different from WYSIWYG (<em>What you see is what you get</em>) editors, such as Microsoft Word. In VS Code, rendering a .qmd file creates a new window next to your source code that shows a preview of the formatted document and provides a WYSIWYG-like interface.</p>
+<!-- ![](https://upload.wikimedia.org/wikipedia/commons/7/74/A-Cat.jpg){fig-align="center" width="273"} -->
+</section>
+<section id="code-chunks" class="level2">
+<h2 class="anchored" data-anchor-id="code-chunks">Code chunks</h2>
+<p><a href="https://quarto.org/docs/computations/python.html">Code chunks</a> contain executable code and let you embed results directly into your text (e.g., data summaries, plots, or tables). Code chunks are automatically re-run when the document is rendered. If any code chunk fails, the entire document may fail to render. This encourages writing reproducible, error-free code.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Code chunk options
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>Code chunks are delimited by <code>```{python}</code> (you can specify other languages like R, Julia, ObservableJS). For each code you can add <em>chunk options</em> to the code chunks with <code>#|</code>, for example <code>#| echo: false</code> will hide the code. In VS Code you can see the options available if you type <code>#|</code> (note the whitespace) and then press <code>Ctrl + Space</code>. Many options can be set globally for the entire document on the YAML header (e.g., under <code>execute:</code>, under <code>html:</code>, or under <code>pdf:</code>).</p>
+</div>
+</div>
+</div>
+<section id="load-libraries" class="level3">
+<h3 class="anchored" data-anchor-id="load-libraries">Load libraries</h3>
+<p>We first load all Python packages that we will use in our analysis. Copy the code below inside a code chunk.</p>
+<div id="a44d6607" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd <span class="co"># data wrangling</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> itables <span class="co"># nicer tables</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt <span class="co"># plotting</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns <span class="co"># nicer plots</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>sns.<span class="bu">set</span>() <span class="co"># activate seaborn defaults</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>itables.options.allow_html <span class="op">=</span> <span class="va">True</span> <span class="co"># needed to hide index with itables</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Optional exercises</strong></p>
+<p>Explore different options for code execution:</p>
+<ul>
+<li>Hide all <!-- echo: false --></li>
+<li>Print all code but do not execute it <!-- echo: true and eval: false --></li>
+<li>Fold all code (accessible by clicking on a button when rendered as HTML) <!-- code-fold: true --> <!-- -   Hide only the code that generates the table --></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="read-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="read-the-data">Read the data</h3>
+<p>For this example we will use the data set “Vornamen neugeborener Mädchen und Knaben mit Wohnsitz in der Stadt Zürich” (<a href="https://data.stadt-zuerich.ch/dataset/bev_vornamen_baby_od3700" class="uri">https://data.stadt-zuerich.ch/dataset/bev_vornamen_baby_od3700</a>). This data set contains the names of newborns in the city of Zurich since the year 1993. The data was kindly made available to the public domain via a CCZero license by Open Data Zürich. We will now import the data and rename the variables into English.</p>
+<div id="a0285082" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://data.stadt-zuerich.ch/dataset/bev_vornamen_baby_od3700/download/BEV370OD3700.csv"</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>dat <span class="op">=</span> pd.read_csv(url)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>datclean <span class="op">=</span> dat.rename({</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"StichtagDatJahr"</span>: <span class="st">"year"</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Vorname"</span>: <span class="st">"name"</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"SexLang"</span>: <span class="st">"sex"</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"AnzGebuWir"</span>: <span class="st">"births"</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  }, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>datclean.replace({<span class="st">"sex"</span>: {<span class="st">"weiblich"</span>: <span class="st">"female"</span>, <span class="st">"männlich"</span>: <span class="st">"male"</span>}}, inplace<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hide warnings in output
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>You can hide all Python warnings from the output by adding the following to your YAML header:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">execute</span><span class="kw">:</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">warning</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="summarizing-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="summarizing-the-data">Summarizing the data</h3>
+<p>We first compute the most common name by year and sex.</p>
+<div id="f8ffae5c" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>max_births <span class="op">=</span> datclean.groupby([<span class="st">"sex"</span>, <span class="st">"year"</span>])[<span class="st">"births"</span>].transform(<span class="st">"max"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>summaries <span class="op">=</span> datclean.loc[datclean[<span class="st">"births"</span>] <span class="op">==</span> max_births]</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>summaries <span class="op">=</span> summaries.sort_values(<span class="st">"year"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>summaries_styled <span class="op">=</span> summaries.style.hide(axis<span class="op">=</span><span class="st">"index"</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>summaries_styled</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<style type="text/css">
+</style>
+
+<table id="T_40500" class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th id="T_40500_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">year</th>
+<th id="T_40500_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">name</th>
+<th id="T_40500_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">sex</th>
+<th id="T_40500_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">LebensfaehigkeitCd</th>
+<th id="T_40500_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">LebensfaehigkeitLang</th>
+<th id="T_40500_level0_col5" class="col_heading level0 col5" data-quarto-table-cell-role="th">births</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td id="T_40500_row0_col0" class="data row0 col0">2025</td>
+<td id="T_40500_row0_col1" class="data row0 col1">Finn</td>
+<td id="T_40500_row0_col2" class="data row0 col2">male</td>
+<td id="T_40500_row0_col3" class="data row0 col3">J</td>
+<td id="T_40500_row0_col4" class="data row0 col4">zutreffend</td>
+<td id="T_40500_row0_col5" class="data row0 col5">22</td>
+</tr>
+<tr class="even">
+<td id="T_40500_row1_col0" class="data row1 col0">2025</td>
+<td id="T_40500_row1_col1" class="data row1 col1">Sofia</td>
+<td id="T_40500_row1_col2" class="data row1 col2">female</td>
+<td id="T_40500_row1_col3" class="data row1 col3">J</td>
+<td id="T_40500_row1_col4" class="data row1 col4">zutreffend</td>
+<td id="T_40500_row1_col5" class="data row1 col5">19</td>
+</tr>
+<tr class="odd">
+<td id="T_40500_row2_col0" class="data row2 col0">2025</td>
+<td id="T_40500_row2_col1" class="data row2 col1">Emma</td>
+<td id="T_40500_row2_col2" class="data row2 col2">female</td>
+<td id="T_40500_row2_col3" class="data row2 col3">J</td>
+<td id="T_40500_row2_col4" class="data row2 col4">zutreffend</td>
+<td id="T_40500_row2_col5" class="data row2 col5">19</td>
+</tr>
+<tr class="even">
+<td id="T_40500_row3_col0" class="data row3 col0">2025</td>
+<td id="T_40500_row3_col1" class="data row3 col1">Sophia</td>
+<td id="T_40500_row3_col2" class="data row3 col2">female</td>
+<td id="T_40500_row3_col3" class="data row3 col3">J</td>
+<td id="T_40500_row3_col4" class="data row3 col4">zutreffend</td>
+<td id="T_40500_row3_col5" class="data row3 col5">19</td>
+</tr>
+<tr class="odd">
+<td id="T_40500_row4_col0" class="data row4 col0">2025</td>
+<td id="T_40500_row4_col1" class="data row4 col1">Louis</td>
+<td id="T_40500_row4_col2" class="data row4 col2">male</td>
+<td id="T_40500_row4_col3" class="data row4 col3">J</td>
+<td id="T_40500_row4_col4" class="data row4 col4">zutreffend</td>
+<td id="T_40500_row4_col5" class="data row4 col5">22</td>
+</tr>
+<tr class="even">
+<td id="T_40500_row5_col0" class="data row5 col0">2024</td>
+<td id="T_40500_row5_col1" class="data row5 col1">Matteo</td>
+<td id="T_40500_row5_col2" class="data row5 col2">male</td>
+<td id="T_40500_row5_col3" class="data row5 col3">J</td>
+<td id="T_40500_row5_col4" class="data row5 col4">zutreffend</td>
+<td id="T_40500_row5_col5" class="data row5 col5">23</td>
+</tr>
+<tr class="odd">
+<td id="T_40500_row6_col0" class="data row6 col0">2024</td>
+<td id="T_40500_row6_col1" class="data row6 col1">Emma</td>
+<td id="T_40500_row6_col2" class="data row6 col2">female</td>
+<td id="T_40500_row6_col3" class="data row6 col3">J</td>
+<td id="T_40500_row6_col4" class="data row6 col4">zutreffend</td>
+<td id="T_40500_row6_col5" class="data row6 col5">23</td>
+</tr>
+<tr class="even">
+<td id="T_40500_row7_col0" class="data row7 col0">2023</td>
+<td id="T_40500_row7_col1" class="data row7 col1">Sofia</td>
+<td id="T_40500_row7_col2" class="data row7 col2">female</td>
+<td id="T_40500_row7_col3" class="data row7 col3">J</td>
+<td id="T_40500_row7_col4" class="data row7 col4">zutreffend</td>
+<td id="T_40500_row7_col5" class="data row7 col5">26</td>
+</tr>
+<tr class="odd">
+<td id="T_40500_row8_col0" class="data row8 col0">2023</td>
+<td id="T_40500_row8_col1" class="data row8 col1">Leo</td>
+<td id="T_40500_row8_col2" class="data row8 col2">male</td>
+<td id="T_40500_row8_col3" class="data row8 col3">J</td>
+<td id="T_40500_row8_col4" class="data row8 col4">zutreffend</td>
+<td id="T_40500_row8_col5" class="data row8 col5">28</td>
+</tr>
+<tr class="even">
+<td id="T_40500_row9_col0" class="data row9 col0">2022</td>
+<td id="T_40500_row9_col1" class="data row9 col1">Anna</td>
+<td id="T_40500_row9_col2" class="data row9 col2">female</td>
+<td id="T_40500_row9_col3" class="data row9 col3">J</td>
+<td id="T_40500_row9_col4" class="data row9 col4">zutreffend</td>
+<td id="T_40500_row9_col5" class="data row9 col5">21</td>
+</tr>
+<tr class="odd">
+<td id="T_40500_row10_col0" class="data row10 col0">2022</td>
+<td id="T_40500_row10_col1" class="data row10 col1">Leon</td>
+<td id="T_40500_row10_col2" class="data row10 col2">male</td>
+<td id="T_40500_row10_col3" class="data row10 col3">J</td>
+<td id="T_40500_row10_col4" class="data row10 col4">zutreffend</td>
+<td id="T_40500_row10_col5" class="data row10 col5">30</td>
+</tr>
+<tr class="even">
+<td id="T_40500_row11_col0" class="data row11 col0">2021</td>
+<td id="T_40500_row11_col1" class="data row11 col1">Noah</td>
+<td id="T_40500_row11_col2" class="data row11 col2">male</td>
+<td id="T_40500_row11_col3" class="data row11 col3">J</td>
+<td id="T_40500_row11_col4" class="data row11 col4">zutreffend</td>
+<td id="T_40500_row11_col5" class="data row11 col5">27</td>
+</tr>
+<tr class="odd">
+<td id="T_40500_row12_col0" class="data row12 col0">2021</td>
+<td id="T_40500_row12_col1" class="data row12 col1">Olivia</td>
+<td id="T_40500_row12_col2" class="data row12 col2">female</td>
+<td id="T_40500_row12_col3" class="data row12 col3">J</td>
+<td id="T_40500_row12_col4" class="data row12 col4">zutreffend</td>
+<td id="T_40500_row12_col5" class="data row12 col5">28</td>
+</tr>
+<tr class="even">
+<td id="T_40500_row13_col0" class="data row13 col0">2020</td>
+<td id="T_40500_row13_col1" class="data row13 col1">Leo</td>
+<td id="T_40500_row13_col2" class="data row13 col2">male</td>
+<td id="T_40500_row13_col3" class="data row13 col3">J</td>
+<td id="T_40500_row13_col4" class="data row13 col4">zutreffend</td>
+<td id="T_40500_row13_col5" class="data row13 col5">23</td>
+</tr>
+<tr class="odd">
+<td id="T_40500_row14_col0" class="data row14 col0">2020</td>
+<td id="T_40500_row14_col1" class="data row14 col1">Sofia</td>
+<td id="T_40500_row14_col2" class="data row14 col2">female</td>
+<td id="T_40500_row14_col3" class="data row14 col3">J</td>
+<td id="T_40500_row14_col4" class="data row14 col4">zutreffend</td>
+<td id="T_40500_row14_col5" class="data row14 col5">24</td>
+</tr>
+<tr class="even">
+<td id="T_40500_row15_col0" class="data row15 col0">2019</td>
+<td id="T_40500_row15_col1" class="data row15 col1">Sophie</td>
+<td id="T_40500_row15_col2" class="data row15 col2">female</td>
+<td id="T_40500_row15_col3" class="data row15 col3">J</td>
+<td id="T_40500_row15_col4" class="data row15 col4">zutreffend</td>
+<td id="T_40500_row15_col5" class="data row15 col5">26</td>
+</tr>
+<tr class="odd">
+<td id="T_40500_row16_col0" class="data row16 col0">2019</td>
+<td id="T_40500_row16_col1" class="data row16 col1">Louis</td>
+<td id="T_40500_row16_col2" class="data row16 col2">male</td>
+<td id="T_40500_row16_col3" class="data row16 col3">J</td>
+<td id="T_40500_row16_col4" class="data row16 col4">zutreffend</td>
+<td id="T_40500_row16_col5" class="data row16 col5">23</td>
+</tr>
+<tr class="even">
+<td id="T_40500_row17_col0" class="data row17 col0">2018</td>
+<td id="T_40500_row17_col1" class="data row17 col1">Emilia</td>
+<td id="T_40500_row17_col2" class="data row17 col2">female</td>
+<td id="T_40500_row17_col3" class="data row17 col3">J</td>
+<td id="T_40500_row17_col4" class="data row17 col4">zutreffend</td>
+<td id="T_40500_row17_col5" class="data row17 col5">25</td>
+</tr>
+<tr class="odd">
+<td id="T_40500_row18_col0" class="data row18 col0">2018</td>
+<td id="T_40500_row18_col1" class="data row18 col1">Emma</td>
+<td id="T_40500_row18_col2" class="data row18 col2">female</td>
+<td id="T_40500_row18_col3" class="data row18 col3">J</td>
+<td id="T_40500_row18_col4" class="data row18 col4">zutreffend</td>
+<td id="T_40500_row18_col5" class="data row18 col5">25</td>
+</tr>
+<tr class="even">
+<td id="T_40500_row19_col0" class="data row19 col0">2018</td>
+<td id="T_40500_row19_col1" class="data row19 col1">Sophia</td>
+<td id="T_40500_row19_col2" class="data row19 col2">female</td>
+<td id="T_40500_row19_col3" class="data row19 col3">J</td>
+<td id="T_40500_row19_col4" class="data row19 col4">zutreffend</td>
+<td id="T_40500_row19_col5" class="data row19 col5">25</td>
+</tr>
+<tr class="odd">
+<td id="T_40500_row20_col0" class="data row20 col0">2018</td>
+<td id="T_40500_row20_col1" class="data row20 col1">Leo</td>
+<td id="T_40500_row20_col2" class="data row20 col2">male</td>
+<td id="T_40500_row20_col3" class="data row20 col3">J</td>
+<td id="T_40500_row20_col4" class="data row20 col4">zutreffend</td>
+<td id="T_40500_row20_col5" class="data row20 col5">26</td>
+</tr>
+<tr class="even">
+<td id="T_40500_row21_col0" class="data row21 col0">2017</td>
+<td id="T_40500_row21_col1" class="data row21 col1">Emma</td>
+<td id="T_40500_row21_col2" class="data row21 col2">female</td>
+<td id="T_40500_row21_col3" class="data row21 col3">J</td>
+<td id="T_40500_row21_col4" class="data row21 col4">zutreffend</td>
+<td id="T_40500_row21_col5" class="data row21 col5">28</td>
+</tr>
+<tr class="odd">
+<td id="T_40500_row22_col0" class="data row22 col0">2017</td>
+<td id="T_40500_row22_col1" class="data row22 col1">Liam</td>
+<td id="T_40500_row22_col2" class="data row22 col2">male</td>
+<td id="T_40500_row22_col3" class="data row22 col3">J</td>
+<td id="T_40500_row22_col4" class="data row22 col4">zutreffend</td>
+<td id="T_40500_row22_col5" class="data row22 col5">28</td>
+</tr>
+<tr class="even">
+<td id="T_40500_row23_col0" class="data row23 col0">2016</td>
+<td id="T_40500_row23_col1" class="data row23 col1">Louis</td>
+<td id="T_40500_row23_col2" class="data row23 col2">male</td>
+<td id="T_40500_row23_col3" class="data row23 col3">J</td>
+<td id="T_40500_row23_col4" class="data row23 col4">zutreffend</td>
+<td id="T_40500_row23_col5" class="data row23 col5">30</td>
+</tr>
+<tr class="odd">
+<td id="T_40500_row24_col0" class="data row24 col0">2016</td>
+<td id="T_40500_row24_col1" class="data row24 col1">Emma</td>
+<td id="T_40500_row24_col2" class="data row24 col2">female</td>
+<td id="T_40500_row24_col3" class="data row24 col3">J</td>
+<td id="T_40500_row24_col4" class="data row24 col4">zutreffend</td>
+<td id="T_40500_row24_col5" class="data row24 col5">29</td>
+</tr>
+<tr class="even">
+<td id="T_40500_row25_col0" class="data row25 col0">2015</td>
+<td id="T_40500_row25_col1" class="data row25 col1">Leon</td>
+<td id="T_40500_row25_col2" class="data row25 col2">male</td>
+<td id="T_40500_row25_col3" class="data row25 col3">J</td>
+<td id="T_40500_row25_col4" class="data row25 col4">zutreffend</td>
+<td id="T_40500_row25_col5" class="data row25 col5">27</td>
+</tr>
+<tr class="odd">
+<td id="T_40500_row26_col0" class="data row26 col0">2015</td>
+<td id="T_40500_row26_col1" class="data row26 col1">Emma</td>
+<td id="T_40500_row26_col2" class="data row26 col2">female</td>
+<td id="T_40500_row26_col3" class="data row26 col3">J</td>
+<td id="T_40500_row26_col4" class="data row26 col4">zutreffend</td>
+<td id="T_40500_row26_col5" class="data row26 col5">25</td>
+</tr>
+<tr class="even">
+<td id="T_40500_row27_col0" class="data row27 col0">2014</td>
+<td id="T_40500_row27_col1" class="data row27 col1">David</td>
+<td id="T_40500_row27_col2" class="data row27 col2">male</td>
+<td id="T_40500_row27_col3" class="data row27 col3">J</td>
+<td id="T_40500_row27_col4" class="data row27 col4">zutreffend</td>
+<td id="T_40500_row27_col5" class="data row27 col5">26</td>
+</tr>
+<tr class="odd">
+<td id="T_40500_row28_col0" class="data row28 col0">2014</td>
+<td id="T_40500_row28_col1" class="data row28 col1">Emma</td>
+<td id="T_40500_row28_col2" class="data row28 col2">female</td>
+<td id="T_40500_row28_col3" class="data row28 col3">J</td>
+<td id="T_40500_row28_col4" class="data row28 col4">zutreffend</td>
+<td id="T_40500_row28_col5" class="data row28 col5">32</td>
+</tr>
+<tr class="even">
+<td id="T_40500_row29_col0" class="data row29 col0">2013</td>
+<td id="T_40500_row29_col1" class="data row29 col1">Anna</td>
+<td id="T_40500_row29_col2" class="data row29 col2">female</td>
+<td id="T_40500_row29_col3" class="data row29 col3">J</td>
+<td id="T_40500_row29_col4" class="data row29 col4">zutreffend</td>
+<td id="T_40500_row29_col5" class="data row29 col5">31</td>
+</tr>
+<tr class="odd">
+<td id="T_40500_row30_col0" class="data row30 col0">2013</td>
+<td id="T_40500_row30_col1" class="data row30 col1">David</td>
+<td id="T_40500_row30_col2" class="data row30 col2">male</td>
+<td id="T_40500_row30_col3" class="data row30 col3">J</td>
+<td id="T_40500_row30_col4" class="data row30 col4">zutreffend</td>
+<td id="T_40500_row30_col5" class="data row30 col5">24</td>
+</tr>
+<tr class="even">
+<td id="T_40500_row31_col0" class="data row31 col0">2012</td>
+<td id="T_40500_row31_col1" class="data row31 col1">Anna</td>
+<td id="T_40500_row31_col2" class="data row31 col2">female</td>
+<td id="T_40500_row31_col3" class="data row31 col3">J</td>
+<td id="T_40500_row31_col4" class="data row31 col4">zutreffend</td>
+<td id="T_40500_row31_col5" class="data row31 col5">29</td>
+</tr>
+<tr class="odd">
+<td id="T_40500_row32_col0" class="data row32 col0">2012</td>
+<td id="T_40500_row32_col1" class="data row32 col1">Noah</td>
+<td id="T_40500_row32_col2" class="data row32 col2">male</td>
+<td id="T_40500_row32_col3" class="data row32 col3">J</td>
+<td id="T_40500_row32_col4" class="data row32 col4">zutreffend</td>
+<td id="T_40500_row32_col5" class="data row32 col5">20</td>
+</tr>
+<tr class="even">
+<td id="T_40500_row33_col0" class="data row33 col0">2011</td>
+<td id="T_40500_row33_col1" class="data row33 col1">Sophie</td>
+<td id="T_40500_row33_col2" class="data row33 col2">female</td>
+<td id="T_40500_row33_col3" class="data row33 col3">J</td>
+<td id="T_40500_row33_col4" class="data row33 col4">zutreffend</td>
+<td id="T_40500_row33_col5" class="data row33 col5">28</td>
+</tr>
+<tr class="odd">
+<td id="T_40500_row34_col0" class="data row34 col0">2011</td>
+<td id="T_40500_row34_col1" class="data row34 col1">Luis</td>
+<td id="T_40500_row34_col2" class="data row34 col2">male</td>
+<td id="T_40500_row34_col3" class="data row34 col3">J</td>
+<td id="T_40500_row34_col4" class="data row34 col4">zutreffend</td>
+<td id="T_40500_row34_col5" class="data row34 col5">27</td>
+</tr>
+<tr class="even">
+<td id="T_40500_row35_col0" class="data row35 col0">2010</td>
+<td id="T_40500_row35_col1" class="data row35 col1">Julian</td>
+<td id="T_40500_row35_col2" class="data row35 col2">male</td>
+<td id="T_40500_row35_col3" class="data row35 col3">J</td>
+<td id="T_40500_row35_col4" class="data row35 col4">zutreffend</td>
+<td id="T_40500_row35_col5" class="data row35 col5">25</td>
+</tr>
+<tr class="odd">
+<td id="T_40500_row36_col0" class="data row36 col0">2010</td>
+<td id="T_40500_row36_col1" class="data row36 col1">Emma</td>
+<td id="T_40500_row36_col2" class="data row36 col2">female</td>
+<td id="T_40500_row36_col3" class="data row36 col3">J</td>
+<td id="T_40500_row36_col4" class="data row36 col4">zutreffend</td>
+<td id="T_40500_row36_col5" class="data row36 col5">28</td>
+</tr>
+<tr class="even">
+<td id="T_40500_row37_col0" class="data row37 col0">2009</td>
+<td id="T_40500_row37_col1" class="data row37 col1">David</td>
+<td id="T_40500_row37_col2" class="data row37 col2">male</td>
+<td id="T_40500_row37_col3" class="data row37 col3">J</td>
+<td id="T_40500_row37_col4" class="data row37 col4">zutreffend</td>
+<td id="T_40500_row37_col5" class="data row37 col5">22</td>
+</tr>
+<tr class="odd">
+<td id="T_40500_row38_col0" class="data row38 col0">2009</td>
+<td id="T_40500_row38_col1" class="data row38 col1">Lara</td>
+<td id="T_40500_row38_col2" class="data row38 col2">female</td>
+<td id="T_40500_row38_col3" class="data row38 col3">J</td>
+<td id="T_40500_row38_col4" class="data row38 col4">zutreffend</td>
+<td id="T_40500_row38_col5" class="data row38 col5">23</td>
+</tr>
+<tr class="even">
+<td id="T_40500_row39_col0" class="data row39 col0">2008</td>
+<td id="T_40500_row39_col1" class="data row39 col1">David</td>
+<td id="T_40500_row39_col2" class="data row39 col2">male</td>
+<td id="T_40500_row39_col3" class="data row39 col3">J</td>
+<td id="T_40500_row39_col4" class="data row39 col4">zutreffend</td>
+<td id="T_40500_row39_col5" class="data row39 col5">22</td>
+</tr>
+<tr class="odd">
+<td id="T_40500_row40_col0" class="data row40 col0">2008</td>
+<td id="T_40500_row40_col1" class="data row40 col1">Emma</td>
+<td id="T_40500_row40_col2" class="data row40 col2">female</td>
+<td id="T_40500_row40_col3" class="data row40 col3">J</td>
+<td id="T_40500_row40_col4" class="data row40 col4">zutreffend</td>
+<td id="T_40500_row40_col5" class="data row40 col5">25</td>
+</tr>
+<tr class="even">
+<td id="T_40500_row41_col0" class="data row41 col0">2007</td>
+<td id="T_40500_row41_col1" class="data row41 col1">Emma</td>
+<td id="T_40500_row41_col2" class="data row41 col2">female</td>
+<td id="T_40500_row41_col3" class="data row41 col3">J</td>
+<td id="T_40500_row41_col4" class="data row41 col4">zutreffend</td>
+<td id="T_40500_row41_col5" class="data row41 col5">27</td>
+</tr>
+<tr class="odd">
+<td id="T_40500_row42_col0" class="data row42 col0">2007</td>
+<td id="T_40500_row42_col1" class="data row42 col1">David</td>
+<td id="T_40500_row42_col2" class="data row42 col2">male</td>
+<td id="T_40500_row42_col3" class="data row42 col3">J</td>
+<td id="T_40500_row42_col4" class="data row42 col4">zutreffend</td>
+<td id="T_40500_row42_col5" class="data row42 col5">25</td>
+</tr>
+<tr class="even">
+<td id="T_40500_row43_col0" class="data row43 col0">2006</td>
+<td id="T_40500_row43_col1" class="data row43 col1">Anna</td>
+<td id="T_40500_row43_col2" class="data row43 col2">female</td>
+<td id="T_40500_row43_col3" class="data row43 col3">J</td>
+<td id="T_40500_row43_col4" class="data row43 col4">zutreffend</td>
+<td id="T_40500_row43_col5" class="data row43 col5">26</td>
+</tr>
+<tr class="odd">
+<td id="T_40500_row44_col0" class="data row44 col0">2006</td>
+<td id="T_40500_row44_col1" class="data row44 col1">Luca</td>
+<td id="T_40500_row44_col2" class="data row44 col2">male</td>
+<td id="T_40500_row44_col3" class="data row44 col3">J</td>
+<td id="T_40500_row44_col4" class="data row44 col4">zutreffend</td>
+<td id="T_40500_row44_col5" class="data row44 col5">17</td>
+</tr>
+<tr class="even">
+<td id="T_40500_row45_col0" class="data row45 col0">2005</td>
+<td id="T_40500_row45_col1" class="data row45 col1">David</td>
+<td id="T_40500_row45_col2" class="data row45 col2">male</td>
+<td id="T_40500_row45_col3" class="data row45 col3">J</td>
+<td id="T_40500_row45_col4" class="data row45 col4">zutreffend</td>
+<td id="T_40500_row45_col5" class="data row45 col5">20</td>
+</tr>
+<tr class="odd">
+<td id="T_40500_row46_col0" class="data row46 col0">2005</td>
+<td id="T_40500_row46_col1" class="data row46 col1">Lara</td>
+<td id="T_40500_row46_col2" class="data row46 col2">female</td>
+<td id="T_40500_row46_col3" class="data row46 col3">J</td>
+<td id="T_40500_row46_col4" class="data row46 col4">zutreffend</td>
+<td id="T_40500_row46_col5" class="data row46 col5">20</td>
+</tr>
+<tr class="even">
+<td id="T_40500_row47_col0" class="data row47 col0">2004</td>
+<td id="T_40500_row47_col1" class="data row47 col1">Anna</td>
+<td id="T_40500_row47_col2" class="data row47 col2">female</td>
+<td id="T_40500_row47_col3" class="data row47 col3">J</td>
+<td id="T_40500_row47_col4" class="data row47 col4">zutreffend</td>
+<td id="T_40500_row47_col5" class="data row47 col5">22</td>
+</tr>
+<tr class="odd">
+<td id="T_40500_row48_col0" class="data row48 col0">2004</td>
+<td id="T_40500_row48_col1" class="data row48 col1">David</td>
+<td id="T_40500_row48_col2" class="data row48 col2">male</td>
+<td id="T_40500_row48_col3" class="data row48 col3">J</td>
+<td id="T_40500_row48_col4" class="data row48 col4">zutreffend</td>
+<td id="T_40500_row48_col5" class="data row48 col5">27</td>
+</tr>
+<tr class="even">
+<td id="T_40500_row49_col0" class="data row49 col0">2004</td>
+<td id="T_40500_row49_col1" class="data row49 col1">Mia</td>
+<td id="T_40500_row49_col2" class="data row49 col2">female</td>
+<td id="T_40500_row49_col3" class="data row49 col3">J</td>
+<td id="T_40500_row49_col4" class="data row49 col4">zutreffend</td>
+<td id="T_40500_row49_col5" class="data row49 col5">22</td>
+</tr>
+<tr class="odd">
+<td id="T_40500_row50_col0" class="data row50 col0">2003</td>
+<td id="T_40500_row50_col1" class="data row50 col1">Sara</td>
+<td id="T_40500_row50_col2" class="data row50 col2">female</td>
+<td id="T_40500_row50_col3" class="data row50 col3">J</td>
+<td id="T_40500_row50_col4" class="data row50 col4">zutreffend</td>
+<td id="T_40500_row50_col5" class="data row50 col5">18</td>
+</tr>
+<tr class="even">
+<td id="T_40500_row51_col0" class="data row51 col0">2003</td>
+<td id="T_40500_row51_col1" class="data row51 col1">David</td>
+<td id="T_40500_row51_col2" class="data row51 col2">male</td>
+<td id="T_40500_row51_col3" class="data row51 col3">J</td>
+<td id="T_40500_row51_col4" class="data row51 col4">zutreffend</td>
+<td id="T_40500_row51_col5" class="data row51 col5">21</td>
+</tr>
+<tr class="odd">
+<td id="T_40500_row52_col0" class="data row52 col0">2002</td>
+<td id="T_40500_row52_col1" class="data row52 col1">David</td>
+<td id="T_40500_row52_col2" class="data row52 col2">male</td>
+<td id="T_40500_row52_col3" class="data row52 col3">J</td>
+<td id="T_40500_row52_col4" class="data row52 col4">zutreffend</td>
+<td id="T_40500_row52_col5" class="data row52 col5">19</td>
+</tr>
+<tr class="even">
+<td id="T_40500_row53_col0" class="data row53 col0">2002</td>
+<td id="T_40500_row53_col1" class="data row53 col1">Anna</td>
+<td id="T_40500_row53_col2" class="data row53 col2">female</td>
+<td id="T_40500_row53_col3" class="data row53 col3">J</td>
+<td id="T_40500_row53_col4" class="data row53 col4">zutreffend</td>
+<td id="T_40500_row53_col5" class="data row53 col5">24</td>
+</tr>
+<tr class="odd">
+<td id="T_40500_row54_col0" class="data row54 col0">2001</td>
+<td id="T_40500_row54_col1" class="data row54 col1">Laura</td>
+<td id="T_40500_row54_col2" class="data row54 col2">female</td>
+<td id="T_40500_row54_col3" class="data row54 col3">J</td>
+<td id="T_40500_row54_col4" class="data row54 col4">zutreffend</td>
+<td id="T_40500_row54_col5" class="data row54 col5">20</td>
+</tr>
+<tr class="even">
+<td id="T_40500_row55_col0" class="data row55 col0">2001</td>
+<td id="T_40500_row55_col1" class="data row55 col1">Sarah</td>
+<td id="T_40500_row55_col2" class="data row55 col2">female</td>
+<td id="T_40500_row55_col3" class="data row55 col3">J</td>
+<td id="T_40500_row55_col4" class="data row55 col4">zutreffend</td>
+<td id="T_40500_row55_col5" class="data row55 col5">20</td>
+</tr>
+<tr class="odd">
+<td id="T_40500_row56_col0" class="data row56 col0">2001</td>
+<td id="T_40500_row56_col1" class="data row56 col1">Anna</td>
+<td id="T_40500_row56_col2" class="data row56 col2">female</td>
+<td id="T_40500_row56_col3" class="data row56 col3">J</td>
+<td id="T_40500_row56_col4" class="data row56 col4">zutreffend</td>
+<td id="T_40500_row56_col5" class="data row56 col5">20</td>
+</tr>
+<tr class="even">
+<td id="T_40500_row57_col0" class="data row57 col0">2001</td>
+<td id="T_40500_row57_col1" class="data row57 col1">David</td>
+<td id="T_40500_row57_col2" class="data row57 col2">male</td>
+<td id="T_40500_row57_col3" class="data row57 col3">J</td>
+<td id="T_40500_row57_col4" class="data row57 col4">zutreffend</td>
+<td id="T_40500_row57_col5" class="data row57 col5">24</td>
+</tr>
+<tr class="odd">
+<td id="T_40500_row58_col0" class="data row58 col0">2000</td>
+<td id="T_40500_row58_col1" class="data row58 col1">Noah</td>
+<td id="T_40500_row58_col2" class="data row58 col2">male</td>
+<td id="T_40500_row58_col3" class="data row58 col3">J</td>
+<td id="T_40500_row58_col4" class="data row58 col4">zutreffend</td>
+<td id="T_40500_row58_col5" class="data row58 col5">24</td>
+</tr>
+<tr class="even">
+<td id="T_40500_row59_col0" class="data row59 col0">2000</td>
+<td id="T_40500_row59_col1" class="data row59 col1">Laura</td>
+<td id="T_40500_row59_col2" class="data row59 col2">female</td>
+<td id="T_40500_row59_col3" class="data row59 col3">J</td>
+<td id="T_40500_row59_col4" class="data row59 col4">zutreffend</td>
+<td id="T_40500_row59_col5" class="data row59 col5">26</td>
+</tr>
+<tr class="odd">
+<td id="T_40500_row60_col0" class="data row60 col0">1999</td>
+<td id="T_40500_row60_col1" class="data row60 col1">Laura</td>
+<td id="T_40500_row60_col2" class="data row60 col2">female</td>
+<td id="T_40500_row60_col3" class="data row60 col3">J</td>
+<td id="T_40500_row60_col4" class="data row60 col4">zutreffend</td>
+<td id="T_40500_row60_col5" class="data row60 col5">21</td>
+</tr>
+<tr class="even">
+<td id="T_40500_row61_col0" class="data row61 col0">1999</td>
+<td id="T_40500_row61_col1" class="data row61 col1">David</td>
+<td id="T_40500_row61_col2" class="data row61 col2">male</td>
+<td id="T_40500_row61_col3" class="data row61 col3">J</td>
+<td id="T_40500_row61_col4" class="data row61 col4">zutreffend</td>
+<td id="T_40500_row61_col5" class="data row61 col5">22</td>
+</tr>
+<tr class="odd">
+<td id="T_40500_row62_col0" class="data row62 col0">1998</td>
+<td id="T_40500_row62_col1" class="data row62 col1">David</td>
+<td id="T_40500_row62_col2" class="data row62 col2">male</td>
+<td id="T_40500_row62_col3" class="data row62 col3">J</td>
+<td id="T_40500_row62_col4" class="data row62 col4">zutreffend</td>
+<td id="T_40500_row62_col5" class="data row62 col5">21</td>
+</tr>
+<tr class="even">
+<td id="T_40500_row63_col0" class="data row63 col0">1998</td>
+<td id="T_40500_row63_col1" class="data row63 col1">Jan</td>
+<td id="T_40500_row63_col2" class="data row63 col2">male</td>
+<td id="T_40500_row63_col3" class="data row63 col3">J</td>
+<td id="T_40500_row63_col4" class="data row63 col4">zutreffend</td>
+<td id="T_40500_row63_col5" class="data row63 col5">21</td>
+</tr>
+<tr class="odd">
+<td id="T_40500_row64_col0" class="data row64 col0">1998</td>
+<td id="T_40500_row64_col1" class="data row64 col1">Laura</td>
+<td id="T_40500_row64_col2" class="data row64 col2">female</td>
+<td id="T_40500_row64_col3" class="data row64 col3">J</td>
+<td id="T_40500_row64_col4" class="data row64 col4">zutreffend</td>
+<td id="T_40500_row64_col5" class="data row64 col5">31</td>
+</tr>
+<tr class="even">
+<td id="T_40500_row65_col0" class="data row65 col0">1997</td>
+<td id="T_40500_row65_col1" class="data row65 col1">Laura</td>
+<td id="T_40500_row65_col2" class="data row65 col2">female</td>
+<td id="T_40500_row65_col3" class="data row65 col3">J</td>
+<td id="T_40500_row65_col4" class="data row65 col4">zutreffend</td>
+<td id="T_40500_row65_col5" class="data row65 col5">27</td>
+</tr>
+<tr class="odd">
+<td id="T_40500_row66_col0" class="data row66 col0">1997</td>
+<td id="T_40500_row66_col1" class="data row66 col1">Luca</td>
+<td id="T_40500_row66_col2" class="data row66 col2">male</td>
+<td id="T_40500_row66_col3" class="data row66 col3">J</td>
+<td id="T_40500_row66_col4" class="data row66 col4">zutreffend</td>
+<td id="T_40500_row66_col5" class="data row66 col5">27</td>
+</tr>
+<tr class="even">
+<td id="T_40500_row67_col0" class="data row67 col0">1996</td>
+<td id="T_40500_row67_col1" class="data row67 col1">Sara</td>
+<td id="T_40500_row67_col2" class="data row67 col2">female</td>
+<td id="T_40500_row67_col3" class="data row67 col3">J</td>
+<td id="T_40500_row67_col4" class="data row67 col4">zutreffend</td>
+<td id="T_40500_row67_col5" class="data row67 col5">19</td>
+</tr>
+<tr class="odd">
+<td id="T_40500_row68_col0" class="data row68 col0">1996</td>
+<td id="T_40500_row68_col1" class="data row68 col1">David</td>
+<td id="T_40500_row68_col2" class="data row68 col2">male</td>
+<td id="T_40500_row68_col3" class="data row68 col3">J</td>
+<td id="T_40500_row68_col4" class="data row68 col4">zutreffend</td>
+<td id="T_40500_row68_col5" class="data row68 col5">27</td>
+</tr>
+<tr class="even">
+<td id="T_40500_row69_col0" class="data row69 col0">1995</td>
+<td id="T_40500_row69_col1" class="data row69 col1">Luca</td>
+<td id="T_40500_row69_col2" class="data row69 col2">male</td>
+<td id="T_40500_row69_col3" class="data row69 col3">J</td>
+<td id="T_40500_row69_col4" class="data row69 col4">zutreffend</td>
+<td id="T_40500_row69_col5" class="data row69 col5">23</td>
+</tr>
+<tr class="odd">
+<td id="T_40500_row70_col0" class="data row70 col0">1995</td>
+<td id="T_40500_row70_col1" class="data row70 col1">Laura</td>
+<td id="T_40500_row70_col2" class="data row70 col2">female</td>
+<td id="T_40500_row70_col3" class="data row70 col3">J</td>
+<td id="T_40500_row70_col4" class="data row70 col4">zutreffend</td>
+<td id="T_40500_row70_col5" class="data row70 col5">28</td>
+</tr>
+<tr class="even">
+<td id="T_40500_row71_col0" class="data row71 col0">1994</td>
+<td id="T_40500_row71_col1" class="data row71 col1">Sarah</td>
+<td id="T_40500_row71_col2" class="data row71 col2">female</td>
+<td id="T_40500_row71_col3" class="data row71 col3">J</td>
+<td id="T_40500_row71_col4" class="data row71 col4">zutreffend</td>
+<td id="T_40500_row71_col5" class="data row71 col5">23</td>
+</tr>
+<tr class="odd">
+<td id="T_40500_row72_col0" class="data row72 col0">1994</td>
+<td id="T_40500_row72_col1" class="data row72 col1">David</td>
+<td id="T_40500_row72_col2" class="data row72 col2">male</td>
+<td id="T_40500_row72_col3" class="data row72 col3">J</td>
+<td id="T_40500_row72_col4" class="data row72 col4">zutreffend</td>
+<td id="T_40500_row72_col5" class="data row72 col5">29</td>
+</tr>
+<tr class="even">
+<td id="T_40500_row73_col0" class="data row73 col0">1993</td>
+<td id="T_40500_row73_col1" class="data row73 col1">Laura</td>
+<td id="T_40500_row73_col2" class="data row73 col2">female</td>
+<td id="T_40500_row73_col3" class="data row73 col3">J</td>
+<td id="T_40500_row73_col4" class="data row73 col4">zutreffend</td>
+<td id="T_40500_row73_col5" class="data row73 col5">31</td>
+</tr>
+<tr class="odd">
+<td id="T_40500_row74_col0" class="data row74 col0">1993</td>
+<td id="T_40500_row74_col1" class="data row74 col1">Michael</td>
+<td id="T_40500_row74_col2" class="data row74 col2">male</td>
+<td id="T_40500_row74_col3" class="data row74 col3">J</td>
+<td id="T_40500_row74_col4" class="data row74 col4">zutreffend</td>
+<td id="T_40500_row74_col5" class="data row74 col5">22</td>
+</tr>
+<tr class="even">
+<td id="T_40500_row75_col0" class="data row75 col0">1993</td>
+<td id="T_40500_row75_col1" class="data row75 col1">Simon</td>
+<td id="T_40500_row75_col2" class="data row75 col2">male</td>
+<td id="T_40500_row75_col3" class="data row75 col3">J</td>
+<td id="T_40500_row75_col4" class="data row75 col4">zutreffend</td>
+<td id="T_40500_row75_col5" class="data row75 col5">22</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="creating-a-table" class="level3">
+<h3 class="anchored" data-anchor-id="creating-a-table">Creating a table</h3>
+<p>We can create an interactive table summarizing our results using the <a href="https://mwouts.github.io/itables/quick_start.html"><code>itables</code></a> package. See <a href="https://quarto.org/docs/computations/python.html" class="uri">https://quarto.org/docs/computations/python.html</a> for all options how to display tables from Python data frames.</p>
+<div id="25d2d7aa" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>itables.show(summaries_styled, caption<span class="op">=</span><span class="st">"Most common names of newborns in the city of Zurich by year and sex"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<!--| quarto-html-table-processing: none -->
+<table id="T_b9f56"><tbody><tr>
+    <td style="vertical-align:middle; text-align:left">
+    
+    Loading ITables v2.5.2 from the internet...
+    (need <a href="https://mwouts.github.io/itables/troubleshooting.html">help</a>?)</td>
+    </tr></tbody></table>
+<link href="https://www.unpkg.com/dt_for_itables@2.4.0/dt_bundle.css" rel="stylesheet">
+<script type="module">
+    import { ITable, jQuery as $ } from 'https://www.unpkg.com/dt_for_itables@2.4.0/dt_bundle.js';
+
+    document.querySelectorAll("#T_b9f56:not(.dataTable)").forEach(table => {
+        if (!(table instanceof HTMLTableElement))
+            return;
+
+        let dt_args = {"layout": {"topStart": "pageLength", "topEnd": "search", "bottomStart": "info", "bottomEnd": "paging"}, "style": {"table-layout": "auto", "width": "auto", "margin": "auto", "caption-side": "bottom"}, "text_in_header_can_be_selected": true, "order": [], "classes": ["display", "nowrap"], "caption": "Most common names of newborns in the city of Zurich by year and sex", "table_style": "\n", "table_html": "\n<table id=\"T_b9f56\">\n  <thead>\n    <tr>\n      <th id=\"T_b9f56_level0_col0\" class=\"col_heading level0 col0\" >year</th>\n      <th id=\"T_b9f56_level0_col1\" class=\"col_heading level0 col1\" >name</th>\n      <th id=\"T_b9f56_level0_col2\" class=\"col_heading level0 col2\" >sex</th>\n      <th id=\"T_b9f56_level0_col3\" class=\"col_heading level0 col3\" >LebensfaehigkeitCd</th>\n      <th id=\"T_b9f56_level0_col4\" class=\"col_heading level0 col4\" >LebensfaehigkeitLang</th>\n      <th id=\"T_b9f56_level0_col5\" class=\"col_heading level0 col5\" >births</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td id=\"T_b9f56_row0_col0\" class=\"data row0 col0\" >2025</td>\n      <td id=\"T_b9f56_row0_col1\" class=\"data row0 col1\" >Finn</td>\n      <td id=\"T_b9f56_row0_col2\" class=\"data row0 col2\" >male</td>\n      <td id=\"T_b9f56_row0_col3\" class=\"data row0 col3\" >J</td>\n      <td id=\"T_b9f56_row0_col4\" class=\"data row0 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row0_col5\" class=\"data row0 col5\" >22</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row1_col0\" class=\"data row1 col0\" >2025</td>\n      <td id=\"T_b9f56_row1_col1\" class=\"data row1 col1\" >Sofia</td>\n      <td id=\"T_b9f56_row1_col2\" class=\"data row1 col2\" >female</td>\n      <td id=\"T_b9f56_row1_col3\" class=\"data row1 col3\" >J</td>\n      <td id=\"T_b9f56_row1_col4\" class=\"data row1 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row1_col5\" class=\"data row1 col5\" >19</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row2_col0\" class=\"data row2 col0\" >2025</td>\n      <td id=\"T_b9f56_row2_col1\" class=\"data row2 col1\" >Emma</td>\n      <td id=\"T_b9f56_row2_col2\" class=\"data row2 col2\" >female</td>\n      <td id=\"T_b9f56_row2_col3\" class=\"data row2 col3\" >J</td>\n      <td id=\"T_b9f56_row2_col4\" class=\"data row2 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row2_col5\" class=\"data row2 col5\" >19</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row3_col0\" class=\"data row3 col0\" >2025</td>\n      <td id=\"T_b9f56_row3_col1\" class=\"data row3 col1\" >Sophia</td>\n      <td id=\"T_b9f56_row3_col2\" class=\"data row3 col2\" >female</td>\n      <td id=\"T_b9f56_row3_col3\" class=\"data row3 col3\" >J</td>\n      <td id=\"T_b9f56_row3_col4\" class=\"data row3 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row3_col5\" class=\"data row3 col5\" >19</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row4_col0\" class=\"data row4 col0\" >2025</td>\n      <td id=\"T_b9f56_row4_col1\" class=\"data row4 col1\" >Louis</td>\n      <td id=\"T_b9f56_row4_col2\" class=\"data row4 col2\" >male</td>\n      <td id=\"T_b9f56_row4_col3\" class=\"data row4 col3\" >J</td>\n      <td id=\"T_b9f56_row4_col4\" class=\"data row4 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row4_col5\" class=\"data row4 col5\" >22</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row5_col0\" class=\"data row5 col0\" >2024</td>\n      <td id=\"T_b9f56_row5_col1\" class=\"data row5 col1\" >Matteo</td>\n      <td id=\"T_b9f56_row5_col2\" class=\"data row5 col2\" >male</td>\n      <td id=\"T_b9f56_row5_col3\" class=\"data row5 col3\" >J</td>\n      <td id=\"T_b9f56_row5_col4\" class=\"data row5 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row5_col5\" class=\"data row5 col5\" >23</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row6_col0\" class=\"data row6 col0\" >2024</td>\n      <td id=\"T_b9f56_row6_col1\" class=\"data row6 col1\" >Emma</td>\n      <td id=\"T_b9f56_row6_col2\" class=\"data row6 col2\" >female</td>\n      <td id=\"T_b9f56_row6_col3\" class=\"data row6 col3\" >J</td>\n      <td id=\"T_b9f56_row6_col4\" class=\"data row6 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row6_col5\" class=\"data row6 col5\" >23</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row7_col0\" class=\"data row7 col0\" >2023</td>\n      <td id=\"T_b9f56_row7_col1\" class=\"data row7 col1\" >Sofia</td>\n      <td id=\"T_b9f56_row7_col2\" class=\"data row7 col2\" >female</td>\n      <td id=\"T_b9f56_row7_col3\" class=\"data row7 col3\" >J</td>\n      <td id=\"T_b9f56_row7_col4\" class=\"data row7 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row7_col5\" class=\"data row7 col5\" >26</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row8_col0\" class=\"data row8 col0\" >2023</td>\n      <td id=\"T_b9f56_row8_col1\" class=\"data row8 col1\" >Leo</td>\n      <td id=\"T_b9f56_row8_col2\" class=\"data row8 col2\" >male</td>\n      <td id=\"T_b9f56_row8_col3\" class=\"data row8 col3\" >J</td>\n      <td id=\"T_b9f56_row8_col4\" class=\"data row8 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row8_col5\" class=\"data row8 col5\" >28</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row9_col0\" class=\"data row9 col0\" >2022</td>\n      <td id=\"T_b9f56_row9_col1\" class=\"data row9 col1\" >Anna</td>\n      <td id=\"T_b9f56_row9_col2\" class=\"data row9 col2\" >female</td>\n      <td id=\"T_b9f56_row9_col3\" class=\"data row9 col3\" >J</td>\n      <td id=\"T_b9f56_row9_col4\" class=\"data row9 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row9_col5\" class=\"data row9 col5\" >21</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row10_col0\" class=\"data row10 col0\" >2022</td>\n      <td id=\"T_b9f56_row10_col1\" class=\"data row10 col1\" >Leon</td>\n      <td id=\"T_b9f56_row10_col2\" class=\"data row10 col2\" >male</td>\n      <td id=\"T_b9f56_row10_col3\" class=\"data row10 col3\" >J</td>\n      <td id=\"T_b9f56_row10_col4\" class=\"data row10 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row10_col5\" class=\"data row10 col5\" >30</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row11_col0\" class=\"data row11 col0\" >2021</td>\n      <td id=\"T_b9f56_row11_col1\" class=\"data row11 col1\" >Noah</td>\n      <td id=\"T_b9f56_row11_col2\" class=\"data row11 col2\" >male</td>\n      <td id=\"T_b9f56_row11_col3\" class=\"data row11 col3\" >J</td>\n      <td id=\"T_b9f56_row11_col4\" class=\"data row11 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row11_col5\" class=\"data row11 col5\" >27</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row12_col0\" class=\"data row12 col0\" >2021</td>\n      <td id=\"T_b9f56_row12_col1\" class=\"data row12 col1\" >Olivia</td>\n      <td id=\"T_b9f56_row12_col2\" class=\"data row12 col2\" >female</td>\n      <td id=\"T_b9f56_row12_col3\" class=\"data row12 col3\" >J</td>\n      <td id=\"T_b9f56_row12_col4\" class=\"data row12 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row12_col5\" class=\"data row12 col5\" >28</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row13_col0\" class=\"data row13 col0\" >2020</td>\n      <td id=\"T_b9f56_row13_col1\" class=\"data row13 col1\" >Leo</td>\n      <td id=\"T_b9f56_row13_col2\" class=\"data row13 col2\" >male</td>\n      <td id=\"T_b9f56_row13_col3\" class=\"data row13 col3\" >J</td>\n      <td id=\"T_b9f56_row13_col4\" class=\"data row13 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row13_col5\" class=\"data row13 col5\" >23</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row14_col0\" class=\"data row14 col0\" >2020</td>\n      <td id=\"T_b9f56_row14_col1\" class=\"data row14 col1\" >Sofia</td>\n      <td id=\"T_b9f56_row14_col2\" class=\"data row14 col2\" >female</td>\n      <td id=\"T_b9f56_row14_col3\" class=\"data row14 col3\" >J</td>\n      <td id=\"T_b9f56_row14_col4\" class=\"data row14 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row14_col5\" class=\"data row14 col5\" >24</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row15_col0\" class=\"data row15 col0\" >2019</td>\n      <td id=\"T_b9f56_row15_col1\" class=\"data row15 col1\" >Sophie</td>\n      <td id=\"T_b9f56_row15_col2\" class=\"data row15 col2\" >female</td>\n      <td id=\"T_b9f56_row15_col3\" class=\"data row15 col3\" >J</td>\n      <td id=\"T_b9f56_row15_col4\" class=\"data row15 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row15_col5\" class=\"data row15 col5\" >26</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row16_col0\" class=\"data row16 col0\" >2019</td>\n      <td id=\"T_b9f56_row16_col1\" class=\"data row16 col1\" >Louis</td>\n      <td id=\"T_b9f56_row16_col2\" class=\"data row16 col2\" >male</td>\n      <td id=\"T_b9f56_row16_col3\" class=\"data row16 col3\" >J</td>\n      <td id=\"T_b9f56_row16_col4\" class=\"data row16 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row16_col5\" class=\"data row16 col5\" >23</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row17_col0\" class=\"data row17 col0\" >2018</td>\n      <td id=\"T_b9f56_row17_col1\" class=\"data row17 col1\" >Emilia</td>\n      <td id=\"T_b9f56_row17_col2\" class=\"data row17 col2\" >female</td>\n      <td id=\"T_b9f56_row17_col3\" class=\"data row17 col3\" >J</td>\n      <td id=\"T_b9f56_row17_col4\" class=\"data row17 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row17_col5\" class=\"data row17 col5\" >25</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row18_col0\" class=\"data row18 col0\" >2018</td>\n      <td id=\"T_b9f56_row18_col1\" class=\"data row18 col1\" >Emma</td>\n      <td id=\"T_b9f56_row18_col2\" class=\"data row18 col2\" >female</td>\n      <td id=\"T_b9f56_row18_col3\" class=\"data row18 col3\" >J</td>\n      <td id=\"T_b9f56_row18_col4\" class=\"data row18 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row18_col5\" class=\"data row18 col5\" >25</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row19_col0\" class=\"data row19 col0\" >2018</td>\n      <td id=\"T_b9f56_row19_col1\" class=\"data row19 col1\" >Sophia</td>\n      <td id=\"T_b9f56_row19_col2\" class=\"data row19 col2\" >female</td>\n      <td id=\"T_b9f56_row19_col3\" class=\"data row19 col3\" >J</td>\n      <td id=\"T_b9f56_row19_col4\" class=\"data row19 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row19_col5\" class=\"data row19 col5\" >25</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row20_col0\" class=\"data row20 col0\" >2018</td>\n      <td id=\"T_b9f56_row20_col1\" class=\"data row20 col1\" >Leo</td>\n      <td id=\"T_b9f56_row20_col2\" class=\"data row20 col2\" >male</td>\n      <td id=\"T_b9f56_row20_col3\" class=\"data row20 col3\" >J</td>\n      <td id=\"T_b9f56_row20_col4\" class=\"data row20 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row20_col5\" class=\"data row20 col5\" >26</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row21_col0\" class=\"data row21 col0\" >2017</td>\n      <td id=\"T_b9f56_row21_col1\" class=\"data row21 col1\" >Emma</td>\n      <td id=\"T_b9f56_row21_col2\" class=\"data row21 col2\" >female</td>\n      <td id=\"T_b9f56_row21_col3\" class=\"data row21 col3\" >J</td>\n      <td id=\"T_b9f56_row21_col4\" class=\"data row21 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row21_col5\" class=\"data row21 col5\" >28</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row22_col0\" class=\"data row22 col0\" >2017</td>\n      <td id=\"T_b9f56_row22_col1\" class=\"data row22 col1\" >Liam</td>\n      <td id=\"T_b9f56_row22_col2\" class=\"data row22 col2\" >male</td>\n      <td id=\"T_b9f56_row22_col3\" class=\"data row22 col3\" >J</td>\n      <td id=\"T_b9f56_row22_col4\" class=\"data row22 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row22_col5\" class=\"data row22 col5\" >28</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row23_col0\" class=\"data row23 col0\" >2016</td>\n      <td id=\"T_b9f56_row23_col1\" class=\"data row23 col1\" >Louis</td>\n      <td id=\"T_b9f56_row23_col2\" class=\"data row23 col2\" >male</td>\n      <td id=\"T_b9f56_row23_col3\" class=\"data row23 col3\" >J</td>\n      <td id=\"T_b9f56_row23_col4\" class=\"data row23 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row23_col5\" class=\"data row23 col5\" >30</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row24_col0\" class=\"data row24 col0\" >2016</td>\n      <td id=\"T_b9f56_row24_col1\" class=\"data row24 col1\" >Emma</td>\n      <td id=\"T_b9f56_row24_col2\" class=\"data row24 col2\" >female</td>\n      <td id=\"T_b9f56_row24_col3\" class=\"data row24 col3\" >J</td>\n      <td id=\"T_b9f56_row24_col4\" class=\"data row24 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row24_col5\" class=\"data row24 col5\" >29</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row25_col0\" class=\"data row25 col0\" >2015</td>\n      <td id=\"T_b9f56_row25_col1\" class=\"data row25 col1\" >Leon</td>\n      <td id=\"T_b9f56_row25_col2\" class=\"data row25 col2\" >male</td>\n      <td id=\"T_b9f56_row25_col3\" class=\"data row25 col3\" >J</td>\n      <td id=\"T_b9f56_row25_col4\" class=\"data row25 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row25_col5\" class=\"data row25 col5\" >27</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row26_col0\" class=\"data row26 col0\" >2015</td>\n      <td id=\"T_b9f56_row26_col1\" class=\"data row26 col1\" >Emma</td>\n      <td id=\"T_b9f56_row26_col2\" class=\"data row26 col2\" >female</td>\n      <td id=\"T_b9f56_row26_col3\" class=\"data row26 col3\" >J</td>\n      <td id=\"T_b9f56_row26_col4\" class=\"data row26 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row26_col5\" class=\"data row26 col5\" >25</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row27_col0\" class=\"data row27 col0\" >2014</td>\n      <td id=\"T_b9f56_row27_col1\" class=\"data row27 col1\" >David</td>\n      <td id=\"T_b9f56_row27_col2\" class=\"data row27 col2\" >male</td>\n      <td id=\"T_b9f56_row27_col3\" class=\"data row27 col3\" >J</td>\n      <td id=\"T_b9f56_row27_col4\" class=\"data row27 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row27_col5\" class=\"data row27 col5\" >26</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row28_col0\" class=\"data row28 col0\" >2014</td>\n      <td id=\"T_b9f56_row28_col1\" class=\"data row28 col1\" >Emma</td>\n      <td id=\"T_b9f56_row28_col2\" class=\"data row28 col2\" >female</td>\n      <td id=\"T_b9f56_row28_col3\" class=\"data row28 col3\" >J</td>\n      <td id=\"T_b9f56_row28_col4\" class=\"data row28 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row28_col5\" class=\"data row28 col5\" >32</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row29_col0\" class=\"data row29 col0\" >2013</td>\n      <td id=\"T_b9f56_row29_col1\" class=\"data row29 col1\" >Anna</td>\n      <td id=\"T_b9f56_row29_col2\" class=\"data row29 col2\" >female</td>\n      <td id=\"T_b9f56_row29_col3\" class=\"data row29 col3\" >J</td>\n      <td id=\"T_b9f56_row29_col4\" class=\"data row29 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row29_col5\" class=\"data row29 col5\" >31</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row30_col0\" class=\"data row30 col0\" >2013</td>\n      <td id=\"T_b9f56_row30_col1\" class=\"data row30 col1\" >David</td>\n      <td id=\"T_b9f56_row30_col2\" class=\"data row30 col2\" >male</td>\n      <td id=\"T_b9f56_row30_col3\" class=\"data row30 col3\" >J</td>\n      <td id=\"T_b9f56_row30_col4\" class=\"data row30 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row30_col5\" class=\"data row30 col5\" >24</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row31_col0\" class=\"data row31 col0\" >2012</td>\n      <td id=\"T_b9f56_row31_col1\" class=\"data row31 col1\" >Anna</td>\n      <td id=\"T_b9f56_row31_col2\" class=\"data row31 col2\" >female</td>\n      <td id=\"T_b9f56_row31_col3\" class=\"data row31 col3\" >J</td>\n      <td id=\"T_b9f56_row31_col4\" class=\"data row31 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row31_col5\" class=\"data row31 col5\" >29</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row32_col0\" class=\"data row32 col0\" >2012</td>\n      <td id=\"T_b9f56_row32_col1\" class=\"data row32 col1\" >Noah</td>\n      <td id=\"T_b9f56_row32_col2\" class=\"data row32 col2\" >male</td>\n      <td id=\"T_b9f56_row32_col3\" class=\"data row32 col3\" >J</td>\n      <td id=\"T_b9f56_row32_col4\" class=\"data row32 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row32_col5\" class=\"data row32 col5\" >20</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row33_col0\" class=\"data row33 col0\" >2011</td>\n      <td id=\"T_b9f56_row33_col1\" class=\"data row33 col1\" >Sophie</td>\n      <td id=\"T_b9f56_row33_col2\" class=\"data row33 col2\" >female</td>\n      <td id=\"T_b9f56_row33_col3\" class=\"data row33 col3\" >J</td>\n      <td id=\"T_b9f56_row33_col4\" class=\"data row33 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row33_col5\" class=\"data row33 col5\" >28</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row34_col0\" class=\"data row34 col0\" >2011</td>\n      <td id=\"T_b9f56_row34_col1\" class=\"data row34 col1\" >Luis</td>\n      <td id=\"T_b9f56_row34_col2\" class=\"data row34 col2\" >male</td>\n      <td id=\"T_b9f56_row34_col3\" class=\"data row34 col3\" >J</td>\n      <td id=\"T_b9f56_row34_col4\" class=\"data row34 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row34_col5\" class=\"data row34 col5\" >27</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row35_col0\" class=\"data row35 col0\" >2010</td>\n      <td id=\"T_b9f56_row35_col1\" class=\"data row35 col1\" >Julian</td>\n      <td id=\"T_b9f56_row35_col2\" class=\"data row35 col2\" >male</td>\n      <td id=\"T_b9f56_row35_col3\" class=\"data row35 col3\" >J</td>\n      <td id=\"T_b9f56_row35_col4\" class=\"data row35 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row35_col5\" class=\"data row35 col5\" >25</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row36_col0\" class=\"data row36 col0\" >2010</td>\n      <td id=\"T_b9f56_row36_col1\" class=\"data row36 col1\" >Emma</td>\n      <td id=\"T_b9f56_row36_col2\" class=\"data row36 col2\" >female</td>\n      <td id=\"T_b9f56_row36_col3\" class=\"data row36 col3\" >J</td>\n      <td id=\"T_b9f56_row36_col4\" class=\"data row36 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row36_col5\" class=\"data row36 col5\" >28</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row37_col0\" class=\"data row37 col0\" >2009</td>\n      <td id=\"T_b9f56_row37_col1\" class=\"data row37 col1\" >David</td>\n      <td id=\"T_b9f56_row37_col2\" class=\"data row37 col2\" >male</td>\n      <td id=\"T_b9f56_row37_col3\" class=\"data row37 col3\" >J</td>\n      <td id=\"T_b9f56_row37_col4\" class=\"data row37 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row37_col5\" class=\"data row37 col5\" >22</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row38_col0\" class=\"data row38 col0\" >2009</td>\n      <td id=\"T_b9f56_row38_col1\" class=\"data row38 col1\" >Lara</td>\n      <td id=\"T_b9f56_row38_col2\" class=\"data row38 col2\" >female</td>\n      <td id=\"T_b9f56_row38_col3\" class=\"data row38 col3\" >J</td>\n      <td id=\"T_b9f56_row38_col4\" class=\"data row38 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row38_col5\" class=\"data row38 col5\" >23</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row39_col0\" class=\"data row39 col0\" >2008</td>\n      <td id=\"T_b9f56_row39_col1\" class=\"data row39 col1\" >David</td>\n      <td id=\"T_b9f56_row39_col2\" class=\"data row39 col2\" >male</td>\n      <td id=\"T_b9f56_row39_col3\" class=\"data row39 col3\" >J</td>\n      <td id=\"T_b9f56_row39_col4\" class=\"data row39 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row39_col5\" class=\"data row39 col5\" >22</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row40_col0\" class=\"data row40 col0\" >2008</td>\n      <td id=\"T_b9f56_row40_col1\" class=\"data row40 col1\" >Emma</td>\n      <td id=\"T_b9f56_row40_col2\" class=\"data row40 col2\" >female</td>\n      <td id=\"T_b9f56_row40_col3\" class=\"data row40 col3\" >J</td>\n      <td id=\"T_b9f56_row40_col4\" class=\"data row40 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row40_col5\" class=\"data row40 col5\" >25</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row41_col0\" class=\"data row41 col0\" >2007</td>\n      <td id=\"T_b9f56_row41_col1\" class=\"data row41 col1\" >Emma</td>\n      <td id=\"T_b9f56_row41_col2\" class=\"data row41 col2\" >female</td>\n      <td id=\"T_b9f56_row41_col3\" class=\"data row41 col3\" >J</td>\n      <td id=\"T_b9f56_row41_col4\" class=\"data row41 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row41_col5\" class=\"data row41 col5\" >27</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row42_col0\" class=\"data row42 col0\" >2007</td>\n      <td id=\"T_b9f56_row42_col1\" class=\"data row42 col1\" >David</td>\n      <td id=\"T_b9f56_row42_col2\" class=\"data row42 col2\" >male</td>\n      <td id=\"T_b9f56_row42_col3\" class=\"data row42 col3\" >J</td>\n      <td id=\"T_b9f56_row42_col4\" class=\"data row42 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row42_col5\" class=\"data row42 col5\" >25</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row43_col0\" class=\"data row43 col0\" >2006</td>\n      <td id=\"T_b9f56_row43_col1\" class=\"data row43 col1\" >Anna</td>\n      <td id=\"T_b9f56_row43_col2\" class=\"data row43 col2\" >female</td>\n      <td id=\"T_b9f56_row43_col3\" class=\"data row43 col3\" >J</td>\n      <td id=\"T_b9f56_row43_col4\" class=\"data row43 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row43_col5\" class=\"data row43 col5\" >26</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row44_col0\" class=\"data row44 col0\" >2006</td>\n      <td id=\"T_b9f56_row44_col1\" class=\"data row44 col1\" >Luca</td>\n      <td id=\"T_b9f56_row44_col2\" class=\"data row44 col2\" >male</td>\n      <td id=\"T_b9f56_row44_col3\" class=\"data row44 col3\" >J</td>\n      <td id=\"T_b9f56_row44_col4\" class=\"data row44 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row44_col5\" class=\"data row44 col5\" >17</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row45_col0\" class=\"data row45 col0\" >2005</td>\n      <td id=\"T_b9f56_row45_col1\" class=\"data row45 col1\" >David</td>\n      <td id=\"T_b9f56_row45_col2\" class=\"data row45 col2\" >male</td>\n      <td id=\"T_b9f56_row45_col3\" class=\"data row45 col3\" >J</td>\n      <td id=\"T_b9f56_row45_col4\" class=\"data row45 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row45_col5\" class=\"data row45 col5\" >20</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row46_col0\" class=\"data row46 col0\" >2005</td>\n      <td id=\"T_b9f56_row46_col1\" class=\"data row46 col1\" >Lara</td>\n      <td id=\"T_b9f56_row46_col2\" class=\"data row46 col2\" >female</td>\n      <td id=\"T_b9f56_row46_col3\" class=\"data row46 col3\" >J</td>\n      <td id=\"T_b9f56_row46_col4\" class=\"data row46 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row46_col5\" class=\"data row46 col5\" >20</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row47_col0\" class=\"data row47 col0\" >2004</td>\n      <td id=\"T_b9f56_row47_col1\" class=\"data row47 col1\" >Anna</td>\n      <td id=\"T_b9f56_row47_col2\" class=\"data row47 col2\" >female</td>\n      <td id=\"T_b9f56_row47_col3\" class=\"data row47 col3\" >J</td>\n      <td id=\"T_b9f56_row47_col4\" class=\"data row47 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row47_col5\" class=\"data row47 col5\" >22</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row48_col0\" class=\"data row48 col0\" >2004</td>\n      <td id=\"T_b9f56_row48_col1\" class=\"data row48 col1\" >David</td>\n      <td id=\"T_b9f56_row48_col2\" class=\"data row48 col2\" >male</td>\n      <td id=\"T_b9f56_row48_col3\" class=\"data row48 col3\" >J</td>\n      <td id=\"T_b9f56_row48_col4\" class=\"data row48 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row48_col5\" class=\"data row48 col5\" >27</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row49_col0\" class=\"data row49 col0\" >2004</td>\n      <td id=\"T_b9f56_row49_col1\" class=\"data row49 col1\" >Mia</td>\n      <td id=\"T_b9f56_row49_col2\" class=\"data row49 col2\" >female</td>\n      <td id=\"T_b9f56_row49_col3\" class=\"data row49 col3\" >J</td>\n      <td id=\"T_b9f56_row49_col4\" class=\"data row49 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row49_col5\" class=\"data row49 col5\" >22</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row50_col0\" class=\"data row50 col0\" >2003</td>\n      <td id=\"T_b9f56_row50_col1\" class=\"data row50 col1\" >Sara</td>\n      <td id=\"T_b9f56_row50_col2\" class=\"data row50 col2\" >female</td>\n      <td id=\"T_b9f56_row50_col3\" class=\"data row50 col3\" >J</td>\n      <td id=\"T_b9f56_row50_col4\" class=\"data row50 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row50_col5\" class=\"data row50 col5\" >18</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row51_col0\" class=\"data row51 col0\" >2003</td>\n      <td id=\"T_b9f56_row51_col1\" class=\"data row51 col1\" >David</td>\n      <td id=\"T_b9f56_row51_col2\" class=\"data row51 col2\" >male</td>\n      <td id=\"T_b9f56_row51_col3\" class=\"data row51 col3\" >J</td>\n      <td id=\"T_b9f56_row51_col4\" class=\"data row51 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row51_col5\" class=\"data row51 col5\" >21</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row52_col0\" class=\"data row52 col0\" >2002</td>\n      <td id=\"T_b9f56_row52_col1\" class=\"data row52 col1\" >David</td>\n      <td id=\"T_b9f56_row52_col2\" class=\"data row52 col2\" >male</td>\n      <td id=\"T_b9f56_row52_col3\" class=\"data row52 col3\" >J</td>\n      <td id=\"T_b9f56_row52_col4\" class=\"data row52 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row52_col5\" class=\"data row52 col5\" >19</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row53_col0\" class=\"data row53 col0\" >2002</td>\n      <td id=\"T_b9f56_row53_col1\" class=\"data row53 col1\" >Anna</td>\n      <td id=\"T_b9f56_row53_col2\" class=\"data row53 col2\" >female</td>\n      <td id=\"T_b9f56_row53_col3\" class=\"data row53 col3\" >J</td>\n      <td id=\"T_b9f56_row53_col4\" class=\"data row53 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row53_col5\" class=\"data row53 col5\" >24</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row54_col0\" class=\"data row54 col0\" >2001</td>\n      <td id=\"T_b9f56_row54_col1\" class=\"data row54 col1\" >Laura</td>\n      <td id=\"T_b9f56_row54_col2\" class=\"data row54 col2\" >female</td>\n      <td id=\"T_b9f56_row54_col3\" class=\"data row54 col3\" >J</td>\n      <td id=\"T_b9f56_row54_col4\" class=\"data row54 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row54_col5\" class=\"data row54 col5\" >20</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row55_col0\" class=\"data row55 col0\" >2001</td>\n      <td id=\"T_b9f56_row55_col1\" class=\"data row55 col1\" >Sarah</td>\n      <td id=\"T_b9f56_row55_col2\" class=\"data row55 col2\" >female</td>\n      <td id=\"T_b9f56_row55_col3\" class=\"data row55 col3\" >J</td>\n      <td id=\"T_b9f56_row55_col4\" class=\"data row55 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row55_col5\" class=\"data row55 col5\" >20</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row56_col0\" class=\"data row56 col0\" >2001</td>\n      <td id=\"T_b9f56_row56_col1\" class=\"data row56 col1\" >Anna</td>\n      <td id=\"T_b9f56_row56_col2\" class=\"data row56 col2\" >female</td>\n      <td id=\"T_b9f56_row56_col3\" class=\"data row56 col3\" >J</td>\n      <td id=\"T_b9f56_row56_col4\" class=\"data row56 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row56_col5\" class=\"data row56 col5\" >20</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row57_col0\" class=\"data row57 col0\" >2001</td>\n      <td id=\"T_b9f56_row57_col1\" class=\"data row57 col1\" >David</td>\n      <td id=\"T_b9f56_row57_col2\" class=\"data row57 col2\" >male</td>\n      <td id=\"T_b9f56_row57_col3\" class=\"data row57 col3\" >J</td>\n      <td id=\"T_b9f56_row57_col4\" class=\"data row57 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row57_col5\" class=\"data row57 col5\" >24</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row58_col0\" class=\"data row58 col0\" >2000</td>\n      <td id=\"T_b9f56_row58_col1\" class=\"data row58 col1\" >Noah</td>\n      <td id=\"T_b9f56_row58_col2\" class=\"data row58 col2\" >male</td>\n      <td id=\"T_b9f56_row58_col3\" class=\"data row58 col3\" >J</td>\n      <td id=\"T_b9f56_row58_col4\" class=\"data row58 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row58_col5\" class=\"data row58 col5\" >24</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row59_col0\" class=\"data row59 col0\" >2000</td>\n      <td id=\"T_b9f56_row59_col1\" class=\"data row59 col1\" >Laura</td>\n      <td id=\"T_b9f56_row59_col2\" class=\"data row59 col2\" >female</td>\n      <td id=\"T_b9f56_row59_col3\" class=\"data row59 col3\" >J</td>\n      <td id=\"T_b9f56_row59_col4\" class=\"data row59 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row59_col5\" class=\"data row59 col5\" >26</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row60_col0\" class=\"data row60 col0\" >1999</td>\n      <td id=\"T_b9f56_row60_col1\" class=\"data row60 col1\" >Laura</td>\n      <td id=\"T_b9f56_row60_col2\" class=\"data row60 col2\" >female</td>\n      <td id=\"T_b9f56_row60_col3\" class=\"data row60 col3\" >J</td>\n      <td id=\"T_b9f56_row60_col4\" class=\"data row60 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row60_col5\" class=\"data row60 col5\" >21</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row61_col0\" class=\"data row61 col0\" >1999</td>\n      <td id=\"T_b9f56_row61_col1\" class=\"data row61 col1\" >David</td>\n      <td id=\"T_b9f56_row61_col2\" class=\"data row61 col2\" >male</td>\n      <td id=\"T_b9f56_row61_col3\" class=\"data row61 col3\" >J</td>\n      <td id=\"T_b9f56_row61_col4\" class=\"data row61 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row61_col5\" class=\"data row61 col5\" >22</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row62_col0\" class=\"data row62 col0\" >1998</td>\n      <td id=\"T_b9f56_row62_col1\" class=\"data row62 col1\" >David</td>\n      <td id=\"T_b9f56_row62_col2\" class=\"data row62 col2\" >male</td>\n      <td id=\"T_b9f56_row62_col3\" class=\"data row62 col3\" >J</td>\n      <td id=\"T_b9f56_row62_col4\" class=\"data row62 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row62_col5\" class=\"data row62 col5\" >21</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row63_col0\" class=\"data row63 col0\" >1998</td>\n      <td id=\"T_b9f56_row63_col1\" class=\"data row63 col1\" >Jan</td>\n      <td id=\"T_b9f56_row63_col2\" class=\"data row63 col2\" >male</td>\n      <td id=\"T_b9f56_row63_col3\" class=\"data row63 col3\" >J</td>\n      <td id=\"T_b9f56_row63_col4\" class=\"data row63 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row63_col5\" class=\"data row63 col5\" >21</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row64_col0\" class=\"data row64 col0\" >1998</td>\n      <td id=\"T_b9f56_row64_col1\" class=\"data row64 col1\" >Laura</td>\n      <td id=\"T_b9f56_row64_col2\" class=\"data row64 col2\" >female</td>\n      <td id=\"T_b9f56_row64_col3\" class=\"data row64 col3\" >J</td>\n      <td id=\"T_b9f56_row64_col4\" class=\"data row64 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row64_col5\" class=\"data row64 col5\" >31</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row65_col0\" class=\"data row65 col0\" >1997</td>\n      <td id=\"T_b9f56_row65_col1\" class=\"data row65 col1\" >Laura</td>\n      <td id=\"T_b9f56_row65_col2\" class=\"data row65 col2\" >female</td>\n      <td id=\"T_b9f56_row65_col3\" class=\"data row65 col3\" >J</td>\n      <td id=\"T_b9f56_row65_col4\" class=\"data row65 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row65_col5\" class=\"data row65 col5\" >27</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row66_col0\" class=\"data row66 col0\" >1997</td>\n      <td id=\"T_b9f56_row66_col1\" class=\"data row66 col1\" >Luca</td>\n      <td id=\"T_b9f56_row66_col2\" class=\"data row66 col2\" >male</td>\n      <td id=\"T_b9f56_row66_col3\" class=\"data row66 col3\" >J</td>\n      <td id=\"T_b9f56_row66_col4\" class=\"data row66 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row66_col5\" class=\"data row66 col5\" >27</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row67_col0\" class=\"data row67 col0\" >1996</td>\n      <td id=\"T_b9f56_row67_col1\" class=\"data row67 col1\" >Sara</td>\n      <td id=\"T_b9f56_row67_col2\" class=\"data row67 col2\" >female</td>\n      <td id=\"T_b9f56_row67_col3\" class=\"data row67 col3\" >J</td>\n      <td id=\"T_b9f56_row67_col4\" class=\"data row67 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row67_col5\" class=\"data row67 col5\" >19</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row68_col0\" class=\"data row68 col0\" >1996</td>\n      <td id=\"T_b9f56_row68_col1\" class=\"data row68 col1\" >David</td>\n      <td id=\"T_b9f56_row68_col2\" class=\"data row68 col2\" >male</td>\n      <td id=\"T_b9f56_row68_col3\" class=\"data row68 col3\" >J</td>\n      <td id=\"T_b9f56_row68_col4\" class=\"data row68 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row68_col5\" class=\"data row68 col5\" >27</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row69_col0\" class=\"data row69 col0\" >1995</td>\n      <td id=\"T_b9f56_row69_col1\" class=\"data row69 col1\" >Luca</td>\n      <td id=\"T_b9f56_row69_col2\" class=\"data row69 col2\" >male</td>\n      <td id=\"T_b9f56_row69_col3\" class=\"data row69 col3\" >J</td>\n      <td id=\"T_b9f56_row69_col4\" class=\"data row69 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row69_col5\" class=\"data row69 col5\" >23</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row70_col0\" class=\"data row70 col0\" >1995</td>\n      <td id=\"T_b9f56_row70_col1\" class=\"data row70 col1\" >Laura</td>\n      <td id=\"T_b9f56_row70_col2\" class=\"data row70 col2\" >female</td>\n      <td id=\"T_b9f56_row70_col3\" class=\"data row70 col3\" >J</td>\n      <td id=\"T_b9f56_row70_col4\" class=\"data row70 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row70_col5\" class=\"data row70 col5\" >28</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row71_col0\" class=\"data row71 col0\" >1994</td>\n      <td id=\"T_b9f56_row71_col1\" class=\"data row71 col1\" >Sarah</td>\n      <td id=\"T_b9f56_row71_col2\" class=\"data row71 col2\" >female</td>\n      <td id=\"T_b9f56_row71_col3\" class=\"data row71 col3\" >J</td>\n      <td id=\"T_b9f56_row71_col4\" class=\"data row71 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row71_col5\" class=\"data row71 col5\" >23</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row72_col0\" class=\"data row72 col0\" >1994</td>\n      <td id=\"T_b9f56_row72_col1\" class=\"data row72 col1\" >David</td>\n      <td id=\"T_b9f56_row72_col2\" class=\"data row72 col2\" >male</td>\n      <td id=\"T_b9f56_row72_col3\" class=\"data row72 col3\" >J</td>\n      <td id=\"T_b9f56_row72_col4\" class=\"data row72 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row72_col5\" class=\"data row72 col5\" >29</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row73_col0\" class=\"data row73 col0\" >1993</td>\n      <td id=\"T_b9f56_row73_col1\" class=\"data row73 col1\" >Laura</td>\n      <td id=\"T_b9f56_row73_col2\" class=\"data row73 col2\" >female</td>\n      <td id=\"T_b9f56_row73_col3\" class=\"data row73 col3\" >J</td>\n      <td id=\"T_b9f56_row73_col4\" class=\"data row73 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row73_col5\" class=\"data row73 col5\" >31</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row74_col0\" class=\"data row74 col0\" >1993</td>\n      <td id=\"T_b9f56_row74_col1\" class=\"data row74 col1\" >Michael</td>\n      <td id=\"T_b9f56_row74_col2\" class=\"data row74 col2\" >male</td>\n      <td id=\"T_b9f56_row74_col3\" class=\"data row74 col3\" >J</td>\n      <td id=\"T_b9f56_row74_col4\" class=\"data row74 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row74_col5\" class=\"data row74 col5\" >22</td>\n    </tr>\n    <tr>\n      <td id=\"T_b9f56_row75_col0\" class=\"data row75 col0\" >1993</td>\n      <td id=\"T_b9f56_row75_col1\" class=\"data row75 col1\" >Simon</td>\n      <td id=\"T_b9f56_row75_col2\" class=\"data row75 col2\" >male</td>\n      <td id=\"T_b9f56_row75_col3\" class=\"data row75 col3\" >J</td>\n      <td id=\"T_b9f56_row75_col4\" class=\"data row75 col4\" >zutreffend</td>\n      <td id=\"T_b9f56_row75_col5\" class=\"data row75 col5\" >22</td>\n    </tr>\n  </tbody>\n</table>\n"};
+        new ITable(table, dt_args);
+    });
+</script>
+</div>
+</div>
+</section>
+<section id="plot-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="plot-the-data">Plot the data</h3>
+<p>Creating a plot in a code chunk automatically inserts it into the rendered Quarto report. For example, we may want to plot the most common names between 2021 and 2025.</p>
+<div id="cell-fig-names" class="cell" data-message="false" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The upper bound is deliberate: the data set gains a year of records over</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># time, and bounding the window keeps this figure matching its caption.</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>top10 <span class="op">=</span> (</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    datclean.loc[(datclean[<span class="st">"year"</span>] <span class="op">&gt;=</span> <span class="dv">2021</span>) <span class="op">&amp;</span> (datclean[<span class="st">"year"</span>] <span class="op">&lt;=</span> <span class="dv">2025</span>)]</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    .groupby([<span class="st">"sex"</span>, <span class="st">"name"</span>], as_index<span class="op">=</span><span class="va">False</span>)[<span class="st">"births"</span>]</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">sum</span>()</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    .sort_values([<span class="st">"sex"</span>, <span class="st">"births"</span>], ascending<span class="op">=</span>[<span class="va">True</span>, <span class="va">False</span>])</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>birth_rank <span class="op">=</span> top10.groupby(<span class="st">"sex"</span>)[<span class="st">"births"</span>].rank(method<span class="op">=</span><span class="st">"min"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>top10 <span class="op">=</span> top10.loc[birth_rank <span class="op">&lt;=</span> <span class="dv">10</span>]</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.FacetGrid(top10, col<span class="op">=</span><span class="st">"sex"</span>, sharex<span class="op">=</span><span class="va">False</span>, sharey<span class="op">=</span><span class="va">False</span>, height<span class="op">=</span><span class="dv">5</span>, aspect<span class="op">=</span><span class="fl">0.75</span>)</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>g.map_dataframe(sns.barplot, y<span class="op">=</span><span class="st">"name"</span>, x<span class="op">=</span><span class="st">"births"</span>)</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Add bar labels</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax <span class="kw">in</span> g.axes[<span class="dv">0</span>]:</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>  ax.bar_label(ax.containers[<span class="dv">0</span>], fontsize<span class="op">=</span><span class="dv">10</span>, padding<span class="op">=-</span><span class="dv">15</span>, color<span class="op">=</span><span class="st">"white"</span>)</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>g.set_axis_labels(<span class="st">"Births"</span>, <span class="st">"Name"</span>)</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>g.set_titles(col_template<span class="op">=</span><span class="st">"</span><span class="sc">{col_name}</span><span class="st">"</span>)</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>g.fig.subplots_adjust(top<span class="op">=</span><span class="fl">0.85</span>)</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="fig-names" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-names-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-names-output-1.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-names-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Most common names of Zurich newborns in 2021-2025.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Note that we can add chunk options to create a caption (<code>#| fig-cap: "Most common names of Zurich newborns in 2021-2025."</code>) and a label (<code>#| label: fig-names</code>). We can then refer to <a href="#fig-names" class="quarto-xref">Figure&nbsp;1</a> in the text using <code>[@fig-names]</code>.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Optional exercises</strong></p>
+<ul>
+<li>Change the height and width of your plot</li>
+<li>Add a label to the previously generated table and refer to it in the text (beware that table labels start with <code>tbl-</code> instead of <code>fig-</code>).</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="plot-your-name" class="level3">
+<h3 class="anchored" data-anchor-id="plot-your-name">Plot your name</h3>
+<p>Here we plot the frequency of our names over time.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Exercise</strong></p>
+<ul>
+<li>Add your name to the plot</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="cell-fig-names-over-time" class="cell" data-message="false" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>subset <span class="op">=</span> datclean[datclean[<span class="st">"name"</span>].isin([<span class="st">"Peter"</span>, <span class="st">"Daniel"</span>])]</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>sns.lineplot(data<span class="op">=</span>subset, x<span class="op">=</span><span class="st">"year"</span>, y<span class="op">=</span><span class="st">"births"</span>, hue<span class="op">=</span><span class="st">"name"</span>, marker<span class="op">=</span><span class="st">"o"</span>, ax<span class="op">=</span>ax)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Year"</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Births"</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="fig-names-over-time" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-names-over-time-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-names-over-time-output-1.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-names-over-time-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Popularity of names over time.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="reproducibility" class="level2">
+<h2 class="anchored" data-anchor-id="reproducibility">Reproducibility</h2>
+<p>When creating dynamic reports, it is good practice to document the software versions and other parts of the computational environment. In reports that use the R programming language, a simple yet effective way to document your computational environment is to include the output of <code>sessionInfo()</code>. While there is no built-in equivalent in Python, several workarounds exist. For example, the <a href="https://pypi.org/project/session-info/">session-info</a> package provides similar functionality to R’s <code>sessionInfo()</code>. Alternatively, you can also print the installed packages using a command from your Python package manager, for example, <code>!pip freeze</code> or <code>!conda list</code> (the <code>!</code> is used to execute shell commands directly from a Python chunk in a Quarto notebook). Yet another option is to manually print the computational environment using only the Python Standard Library:</p>
+<div id="8efd2b35" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> platform</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> importlib.metadata <span class="im">as</span> metadata</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Python version:"</span>, sys.version)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Platform:"</span>, platform.platform())</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Installed packages:"</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> dist <span class="kw">in</span> <span class="bu">sorted</span>(metadata.distributions(), key<span class="op">=</span><span class="kw">lambda</span> d: d.metadata[<span class="st">"Name"</span>].lower()):</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    name <span class="op">=</span> dist.metadata[<span class="st">"Name"</span>]</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    version <span class="op">=</span> dist.version</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">==</span><span class="sc">{</span>version<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Python version: 3.12.3 (main, Jun 19 2026, 12:46:00) [GCC 13.3.0]
+Platform: Linux-6.8.0-1052-azure-x86_64-with-glibc2.39
+
+Installed packages:
+  annotated-types==0.7.0
+  argparse-dataclass==2.0.0
+  asttokens==3.0.0
+  attrs==25.4.0
+  certifi==2026.6.17
+  charset-normalizer==3.4.9
+  comm==0.2.3
+  conda-inject==1.3.2
+  ConfigArgParse==1.7.5
+  connection_pool==0.0.3
+  contourpy==1.3.3
+  cycler==0.12.1
+  debugpy==1.8.17
+  decorator==5.2.1
+  docutils==0.23
+  dpath==2.2.0
+  executing==2.2.1
+  fastjsonschema==2.21.2
+  fonttools==4.60.1
+  gitdb==4.0.12
+  GitPython==3.1.52
+  greenlet==3.5.3
+  humanfriendly==10.0
+  idna==3.18
+  immutables==0.21
+  ipykernel==7.1.0
+  ipython==9.7.0
+  ipython_pygments_lexers==1.1.1
+  itables==2.5.2
+  jedi==0.19.2
+  Jinja2==3.1.6
+  jsonschema==4.25.1
+  jsonschema-specifications==2025.9.1
+  jupyter_client==8.6.3
+  jupyter_core==5.9.1
+  kiwisolver==1.4.9
+  MarkupSafe==3.0.3
+  matplotlib==3.10.7
+  matplotlib-inline==0.2.1
+  nbclient==0.10.2
+  nbformat==5.10.4
+  nest-asyncio==1.6.0
+  numpy==2.3.4
+  packaging==24.0
+  pandas==2.3.3
+  parso==0.8.5
+  pexpect==4.9.0
+  pillow==12.0.0
+  pip==24.0
+  platformdirs==4.5.0
+  polars==1.40.1
+  polars-runtime-32==1.40.1
+  prompt_toolkit==3.0.52
+  psutil==7.1.3
+  ptyprocess==0.7.0
+  PuLP==3.3.2
+  pure_eval==0.2.3
+  pydantic==2.13.4
+  pydantic_core==2.46.4
+  Pygments==2.19.2
+  pyparsing==3.2.5
+  python-dateutil==2.9.0.post0
+  pytz==2025.2
+  PyYAML==6.0.3
+  pyzmq==27.1.0
+  referencing==0.37.0
+  requests==2.34.2
+  rpds-py==0.28.0
+  seaborn==0.13.2
+  six==1.17.0
+  smart_open==7.7.1
+  smmap==5.0.3
+  snakemake==9.20.0
+  snakemake-interface-common==1.23.0
+  snakemake-interface-executor-plugins==9.4.0
+  snakemake-interface-logger-plugins==2.1.0
+  snakemake-interface-report-plugins==1.3.0
+  snakemake-interface-scheduler-plugins==2.0.2
+  snakemake-interface-storage-plugins==4.4.1
+  SQLAlchemy==2.0.51
+  sqlmodel==0.0.37
+  stack-data==0.6.3
+  tabulate==0.10.0
+  tenacity==9.1.4
+  throttler==1.2.3
+  tornado==6.5.2
+  traitlets==5.14.3
+  typing-inspection==0.4.2
+  typing_extensions==4.15.0
+  tzdata==2025.2
+  urllib3==2.7.0
+  wcwidth==0.2.14
+  wrapt==2.2.2
+  yte==1.9.4</code></pre>
+</div>
+</div>
+</section>
+<section id="bonus-content" class="level2">
+<h2 class="anchored" data-anchor-id="bonus-content">Bonus content</h2>
+<section id="inline-code" class="level3">
+<h3 class="anchored" data-anchor-id="inline-code">Inline code</h3>
+<p>A “killer-feature” of dynamic reporting is the possibility to add <a href="https://quarto.org/docs/computations/inline-code.html">inline code</a>. This allows us to dynamically insert data summaries into text, avoiding tedious and error-prone copy-and-pasting. For example,</p>
+<blockquote class="blockquote">
+<p>In 2023, the most common male name was `<code>{python} summaries.query("year == 2023 and sex == 'male'").name.iloc[0]`</code> whereas the most common female name was `<code>{python} summaries.query("year == 2023 and sex == 'female'").name.iloc[0]`</code>.</p>
+</blockquote>
+<p>produces</p>
+<blockquote class="blockquote">
+<p>In 2023, the most common male name was Leo whereas the most common female name was Sofia.</p>
+</blockquote>
+<p>Note that, instead of performing computations within an inline code chunk, it is often advisable to perform computations in a separate code chunk, save the results to a variable, and then print the variable in the inline code chunk.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Optional exercise</strong></p>
+<p>Compute the total number of births in the data set and then display it via an inline code chunk.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="references" class="level3">
+<h3 class="anchored" data-anchor-id="references">References</h3>
+<p>In Quarto, it is also possible to include a bibliography file in BibTeX format (with .bib file extension) to automatically generate citations and a bibliography (<a href="https://quarto.org/docs/authoring/citations.html" class="uri">https://quarto.org/docs/authoring/citations.html</a>). This file has to be specified in the YAML header. In this hands-on, we have a <code>references.bib</code> file in the same directory as this .qmd file, so we specify:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bibliography</span><span class="kw">:</span><span class="at"> references.bib</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We can then use <code>[@Hofmann2023]</code> (with parentheses) or <code>@Hofmann2023</code> (without parentheses) to cite a bibliography item named Hofmann2023. For example, <span class="citation" data-cites="Hofmann2023">Hofmann et al. (<a href="#ref-Hofmann2023" role="doc-biblioref">2023</a>)</span> provides an introduction to dynamic reporting. <span class="citation" data-cites="Peikert2021">Peikert and Brandmaier (<a href="#ref-Peikert2021" role="doc-biblioref">2021</a>)</span> summarizes a more advanced dynamic reporting workflow. <span class="citation" data-cites="Knuth1984">Knuth (<a href="#ref-Knuth1984" role="doc-biblioref">1984</a>)</span> proposed the literate programming paradigm.</p>
+<p>A typical entry from a BibTeX bibliography file looks like this:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bibtex code-with-copy"><code class="sourceCode bibtex"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="va">@article</span>{<span class="ot">Knuth1984</span>,</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span> = {Literate Programming},</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">volume</span> = {27},</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">DOI</span> = {10.1093/comjnl/27.2.97},</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">number</span> = {2},</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">journal</span> = {The Computer Journal},</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span> = {Knuth,  D. E.},</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">year</span> = {1984},</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">pages</span> = {97--111}</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>These files can either be created manually or with a reference manager (e.g., <a href="https://www.zotero.org/">Zotero</a>).</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Optional exercise</strong></p>
+<p>Cite one of your favorite papers</p>
+</div>
+</div>
+</div>
+</section>
+<section id="practical-tips" class="level3">
+<h3 class="anchored" data-anchor-id="practical-tips">Practical tips</h3>
+<p>This concludes a first introduction to dynamic reporting with Quarto. Here are some further tips</p>
+<ul>
+<li>Nobody knows all the options by heart, use the <a href="https://quarto.org/docs/reference/">Quarto documentation</a>!</li>
+<li>Re-render your reports often to spot errors quickly</li>
+<li>Use relative paths so that others can reproduce your report</li>
+<li>Always include the computational environment at the bottom of your report to show details on the computational environment (e.g., package versions) used to generate your report <!-- - When sharing your analyses, include a README file that documents all steps necessary to create your report --></li>
+</ul>
+</section>
+<section id="gallery" class="level3">
+<h3 class="anchored" data-anchor-id="gallery">Gallery</h3>
+<p>The are many examples of dynamically generated reports online. Explore the links below:</p>
+<ul>
+<li>Example 1. Reproducible HTML report using R Markdown: <a href="https://data.snf.ch/stories/open-research-data-2023-en.html" class="uri">https://data.snf.ch/stories/open-research-data-2023-en.html</a></li>
+<li>Example 2. Reproducible PDF report using knitr: <a href="https://gitlab.uzh.ch/fabio.molo/nhb-replication" class="uri">https://gitlab.uzh.ch/fabio.molo/nhb-replication</a></li>
+<li>Example 3. Website with dynamically generated course materials: <a href="https://github.com/avehtari/BDA_course_Aalto/tree/master" class="uri">https://github.com/avehtari/BDA_course_Aalto/tree/master</a></li>
+<li>Example 4. Reproducible HTML slides with Quarto: <a href="https://github.com/kjhealy/flipbookr-quarto/tree/main?tab=readme-ov-file" class="uri">https://github.com/kjhealy/flipbookr-quarto/tree/main?tab=readme-ov-file</a>.</li>
+<li>Example 5. Code repository of a paper with multiple Quarto analyses (HTML): <a href="https://github.com/SamCH93/missSim" class="uri">https://github.com/SamCH93/missSim</a></li>
+</ul>
+<p>Reflect about the following questions:</p>
+<ul class="task-list">
+<li><label><input type="checkbox">Can you find the source files that generate the reports?</label></li>
+<li><label><input type="checkbox">Which dynamic reporting tools are used?</label></li>
+<li><label><input type="checkbox">Can you access the outputs?</label></li>
+<li><label><input type="checkbox">Do they use some advanced features for dynamic reporting or computational reproducibility?</label></li>
+<li><label><input type="checkbox">What would be the workflow to reproduce these reports?</label></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="references-1" class="level1">
+
+
+
+
+</section>
+
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Hofmann2023" class="csl-entry" role="listitem">
+Hofmann, Felix, Pawel Samuel, Hebeisen Monika, and Held Leonhard. 2023. <span>“Primer: Dynamic Reporting.”</span> Zenodo. <a href="https://doi.org/10.5281/ZENODO.7565735">https://doi.org/10.5281/ZENODO.7565735</a>.
+</div>
+<div id="ref-Knuth1984" class="csl-entry" role="listitem">
+Knuth, D. E. 1984. <span>“Literate Programming.”</span> <em>The Computer Journal</em> 27 (2): 97–111. <a href="https://doi.org/10.1093/comjnl/27.2.97">https://doi.org/10.1093/comjnl/27.2.97</a>.
+</div>
+<div id="ref-Peikert2021" class="csl-entry" role="listitem">
+Peikert, Aaron, and Andreas M. Brandmaier. 2021. <span>“A Reproducible Data Analysis Workflow with r Markdown, Git, Make, and Docker.”</span> <em>Quantitative and Computational Methods in Behavioral Sciences</em> 1. <a href="https://doi.org/10.5964/qcmb.3763">https://doi.org/10.5964/qcmb.3763</a>.
+</div>
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>YAML is an acronym for “Yet Another Markup Language”<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Made with <a href="https://quarto.org/"><img src="https://quarto.org/quarto.png" class="img-fluid" alt="Quarto" width="65"></a><br>
+&nbsp;by the <a href="https://www.crs.uzh.ch/en.html">Center for Reproducible Science and Research Synthesis</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<style>
+.github-lockup { height: 24px; width: auto; vertical-align: text-bottom; }
+.quarto-light .github-lockup-white,
+.quarto-dark .github-lockup-black { display: none; }
+</style>
+<p>Free under the <a href="https://creativecommons.org/licenses/by/4.0/">CC BY international license 4.0</a>.<br>
+&nbsp;Source code on <a href="https://github.com/a1eksb/operra-reproducibility" aria-label="Source code on GitHub"><img class="github-lockup github-lockup-black" src="../../assets/GitHub_Lockup_Black_Clearspace.svg" alt=""><img class="github-lockup github-lockup-white" src="../../assets/GitHub_Lockup_White_Clearspace.svg" alt=""></a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
