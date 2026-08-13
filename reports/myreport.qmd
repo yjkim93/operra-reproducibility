@@ -1,0 +1,81 @@
+---
+title: "First Quarto Document"
+subtitle: "Computational Reproducibility Workshop"
+date: last-modified
+author: 
+  - name: "Youngjun Kim"
+    email: young.kim@unibe.ch
+    affiliation: "University of Bern"
+format: 
+  html:
+    toc: true
+editor: source
+---
+
+# This is a title
+
+Two stars will render a word **bold**. 
+
+We can also create lists:
+
+- Element 1
+- Element 2
+
+A useful link is this [Markdown guide](https://quarto.org/docs/authoring/markdown-basics.html)
+
+> An impressive quote
+
+## Data Analysis
+
+```{r}
+#| echo: true
+
+library("dplyr")
+library("ggplot2")
+library("kableExtra")
+```
+
+```{r}
+url <- "https://data.stadt-zuerich.ch/dataset/bev_vornamen_baby_od3700/download/BEV370OD3700.csv"
+dat <- read.csv(url)
+datclean <- dat |>
+    rename(year = StichtagDatJahr,
+           name = Vorname,
+           sex = SexLang,
+           births = AnzGebuWir) |>
+    mutate(sex = ifelse(sex == "weiblich", "female", "male"))
+```
+
+```{r}
+summaries <- datclean |>
+  select(year, name, sex, births) |>
+  group_by(sex, year) |>
+  slice_max(order_by = births, n = 1) |>
+  arrange(-year)
+```
+
+# Table
+
+See the most common names in @tbl-names
+
+```{r}
+#| label: tbl-names
+#| tbl-cap: asdf
+
+
+summaries |>
+  kable(caption = "Most common names of newborns in the city of Zurich by year and sex") 
+```
+
+```{r}
+datclean |>
+  group_by(sex, name, year) |>
+  filter(name %in% c("Fabio", "Daniel")) |>
+  ggplot(aes(x = year, y = births, color = name)) +
+  geom_line() +
+  geom_point() +
+  scale_color_viridis_d() +
+  labs(x = "Year", y = "Births", color = "") +
+  expand_limits(y = 0) +
+  theme_minimal()
+```
